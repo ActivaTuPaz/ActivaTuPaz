@@ -35,9 +35,9 @@ export const workshops = [
     {
         id: "universo-emociones",
         title: "El universo de las emociones & Biodecodificación",
-        shortDescription: "Un encuentro para adentrarnos en el universo emocional y descubrir la Biodecodificación como una herramienta de comprensión profunda del cuerpo, las emociones y los conflictos.",
+        shortDescription: "Un encuentro para adentrarnos en el universo emocional y descubrir una herramienta de comprensión profunda del cuerpo, las emociones y los conflictos.",
         fullDescription: [
-            "Un encuentro para adentrarnos en el universo emocional y descubrir la Biodecodificación como una herramienta de comprensión profunda del cuerpo, las emociones y los conflictos.",
+            "Un encuentro para adentrarnos en el universo emocional y descubrir una herramienta de comprensión profunda del cuerpo, las emociones y los conflictos.",
             "En este espacio compartimos conocimientos sobre:",
             "❤️ Qué es la Biodecodificación",
             "❤️ Para qué sirve y cómo se aplica",

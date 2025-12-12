@@ -17,7 +17,7 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
-    }, 10000); // Change every 10 seconds
+    }, 15000); // Change every 10 seconds
 
     return () => clearInterval(interval);
   }, [currentIndex, carouselImages.length]);
