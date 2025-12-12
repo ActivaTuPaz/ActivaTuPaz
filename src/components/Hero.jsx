@@ -30,7 +30,8 @@ const Hero = () => {
     <div id="home" className="hero-container">
 
       {/* Top Section: Static Image */}
-      <div className="hero-static" style={{ backgroundImage: `url(${staticImage})` }}>
+      <div className="hero-static">
+        <div className="hero-static-bg" style={{ backgroundImage: `url(${staticImage})` }}></div>
         <div className="hero-content">
           <a href="#services" className="hero-btn">Ver servicios</a>
         </div>
@@ -88,10 +89,20 @@ const Hero = () => {
         .hero-static {
           width: 100%;
           height: 85vh; /* Restored to original height */
+          position: relative;
+          overflow: hidden;
+        }
+
+        .hero-static-bg {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
-          position: relative;
+          z-index: 0;
         }
 
         .hero-content {
@@ -209,6 +220,10 @@ const Hero = () => {
         @media (max-width: 768px) {
           .hero-static {
             height: 60vh;
+          }
+          
+          .hero-static-bg {
+            transform: scale(1.1);
           }
            .hero-content {
             bottom: 25%; /* Adjust for mobile */
