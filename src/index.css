@@ -1,0 +1,118 @@
+:root {
+  /* Strict 5-Color Palette */
+  --c-1: #f7f1d6;
+  /* Lightest */
+  --c-2: #F2E8D4;
+  --c-3: #DBD7D2;
+  --c-4: #D9BE99;
+  --c-5: #C09175;
+  /* Darkest */
+
+  /* Default Theme (Dark) - Swapped per request */
+  --bg-main: var(--c-5);
+  --bg-card: var(--c-4);
+  --bg-input: var(--c-4);
+  --text-main: var(--c-1);
+  --text-muted: var(--c-2);
+  --text-on-primary: var(--c-5);
+  --border: var(--c-4);
+  --primary: var(--c-2);
+  --accent: var(--c-3);
+
+  --shadow-color: 0, 0, 0;
+  /* Enhance shadow visibility in dark mode */
+  --shadow-soft: 0 10px 30px rgba(var(--shadow-color), 0.15);
+
+  --font-main: 'Outfit', sans-serif;
+  --radius-card: 24px;
+  --container-width: 1200px;
+}
+
+[data-theme='light'] {
+  /* Light Theme Mapping */
+  --bg-main: var(--c-1);
+  --bg-card: var(--c-2);
+  --bg-input: var(--c-1);
+  --text-main: var(--c-5);
+  --text-muted: var(--c-4);
+  /* Careful with contrast */
+  --text-on-primary: var(--c-1);
+  --border: var(--c-3);
+  --primary: var(--c-5);
+  --accent: var(--c-4);
+
+  --shadow-color: 192, 145, 117;
+  /* RGB of C-5 for shadows */
+}
+
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  /* Removed padding-top as we will use sticky navbar */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s ease;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  border-radius: var(--radius-card);
+}
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: var(--primary);
+  color: var(--text-on-primary);
+  border-radius: 50px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--shadow-color), 0.3);
+  opacity: 0.9;
+}
