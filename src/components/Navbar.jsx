@@ -101,7 +101,7 @@ const Navbar = ({ theme, toggleTheme }) => {
         }
 
         .navbar-logo {
-          height: 50px; /* Fits nicely in 64px navbar */
+          height: 46px; /* Fits nicely in 64px navbar */
           width: auto;
           display: block;
           transition: opacity 0.3s ease;
