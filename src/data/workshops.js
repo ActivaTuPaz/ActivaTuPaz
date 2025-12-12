@@ -51,7 +51,7 @@ export const workshops = [
     },
     {
         id: "constelaciones-familiares",
-        title: "Constelá tu problema",
+        title: "Constelá lo que te pasa",
         shortDescription: "Exterioriza la imagen interna de tu conflicto para ver su dinámica oculta. Una oportunidad para ordenar lo desordenado y encontrar nuevas soluciones vitales.",
         fullDescription: [
             "Constelar es una herramienta poderosa que nos permite ver, a través de una representación espacial, la dinámica oculta de un conflicto. Al exteriorizar la imagen interna que tenemos del problema, podemos encontrar nuevas soluciones y ordenar lo que estaba desordenado.",
