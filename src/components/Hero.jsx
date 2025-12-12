@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import cover0 from '../assets/images/cover0.png';
+import cover0Mobile from '../assets/images/cover0-movil.png';
 import coverImage from '../assets/images/cover.webp';
 import coverImage2 from '../assets/images/cover2.webp';
 import coverImage3 from '../assets/images/cover3.webp';
 import coverImage4 from '../assets/images/cover4.webp';
 
 const Hero = () => {
-  // Main static image (Top)
-  const staticImage = cover0;
-
-  // Carousel images (Bottom)
   // Carousel images (Bottom)
   const carouselImages = [coverImage, coverImage4, coverImage2, coverImage3];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,7 +14,7 @@ const Hero = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
-    }, 15000); // Change every 10 seconds
+    }, 15000); // Change every 15 seconds
 
     return () => clearInterval(interval);
   }, [currentIndex, carouselImages.length]);
@@ -31,7 +28,7 @@ const Hero = () => {
 
       {/* Top Section: Static Image */}
       <div className="hero-static">
-        <div className="hero-static-bg" style={{ backgroundImage: `url(${staticImage})` }}></div>
+        <div className="hero-static-bg"></div>
         <div className="hero-content">
           <a href="#services" className="hero-btn">Ver servicios</a>
         </div>
@@ -99,6 +96,7 @@ const Hero = () => {
           position: absolute;
           top: 0;
           left: 0;
+          background-image: url(${cover0});
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -223,6 +221,7 @@ const Hero = () => {
           }
           
           .hero-static-bg {
+            background-image: url(${cover0Mobile});
             transform: scale(1.1);
           }
            .hero-content {
