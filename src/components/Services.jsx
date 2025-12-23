@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import { Link } from 'react-router-dom';
-import { workshops } from '../data/workshops';
+import { getWorkshops } from '../services/workshopService';
 import { ChevronLeft, ChevronRight, ChevronsLeftRight, ChevronDown, ChevronUp } from 'lucide-react';
 
 const CarouselSection = ({ items }) => {
@@ -85,19 +85,32 @@ const CarouselSection = ({ items }) => {
 
 const Services = () => {
   const [openSection, setOpenSection] = useState(null); // 'talleres', 'sesiones', or both/null
+  const [talleres, setTalleres] = useState([]);
+  const [sesiones, setSesiones] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getWorkshops();
+        setTalleres(data.filter(w => w.category === 'taller'));
+        setSesiones(data.filter(w => w.category === 'sesion'));
+      } catch (error) {
+        console.error("Error loading services:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   const toggleSection = (section) => {
     setOpenSection(openSection === section ? null : section);
   };
 
-  const workshopIds = [
-    'dar-voz-a-tu-verdad',
-    'lealtades-familiares',
-    'universo-emociones'
-  ];
-
-  const talleres = workshops.filter(w => workshopIds.includes(w.id));
-  const sesiones = workshops.filter(w => !workshopIds.includes(w.id));
+  if (loading) {
+    return <div style={{ padding: '50px', textAlign: 'center' }}>Cargando servicios...</div>;
+  }
 
   return (
     <section id="services" className="section services">

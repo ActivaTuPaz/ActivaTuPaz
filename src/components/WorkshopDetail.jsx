@@ -2,16 +2,37 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { MessageCircle, ArrowLeft } from 'lucide-react';
-import { workshops } from '../data/workshops';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { getWorkshops } from '../services/workshopService';
 
 const WorkshopDetail = () => {
   const { id } = useParams();
-  const workshop = workshops.find(w => w.id === id);
+  const [workshop, setWorkshop] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    const fetchWorkshop = async () => {
+      try {
+        // Optimization: In a larger app we would use getDoc(doc(db, 'workshops', id))
+        // But since our service exports getWorkshops(), we can reuse it or create a new service method
+        // To stay consistent and simple for now without modifying service again:
+        // (Ideally, add getWorkshopById to service later)
+        const allWorkshops = await getWorkshops();
+        const found = allWorkshops.find(w => w.id === id);
+        setWorkshop(found);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchWorkshop();
+  }, [id]);
+
+  if (loading) {
+    return <div style={{ padding: '100px', textAlign: 'center' }}>Cargando...</div>;
+  }
 
   if (!workshop) {
     return (
