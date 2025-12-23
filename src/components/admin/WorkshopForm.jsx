@@ -9,6 +9,7 @@ const WorkshopForm = () => {
 
     const [formData, setFormData] = useState({
         title: '',
+        category: 'taller',
         shortDescription: '',
         fullDescription: '', // Will handle as string and split by lines if needed, or simple textarea
         image: '', // URL
@@ -44,6 +45,7 @@ const WorkshopForm = () => {
                     ...workshop,
                     fullDescription: desc,
                     idealFor: ideal,
+                    category: workshop.category || 'taller',
                 });
             }
         } catch (err) {
@@ -103,6 +105,20 @@ const WorkshopForm = () => {
                         onChange={handleChange}
                         required
                     />
+                </div>
+
+                <div className="form-group">
+                    <label>Categoría</label>
+                    <select
+                        name="category"
+                        value={formData.category || 'taller'}
+                        onChange={handleChange}
+                        required
+                        className="select-input"
+                    >
+                        <option value="taller">Taller</option>
+                        <option value="sesion">Sesión</option>
+                    </select>
                 </div>
 
                 <div className="form-group">

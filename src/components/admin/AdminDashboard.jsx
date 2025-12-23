@@ -50,9 +50,14 @@ const AdminDashboard = () => {
             try {
                 setLoading(true);
                 for (const workshop of initialWorkshops) {
+                    // Determine category based on hardcoded list
+                    const workshopIds = ['dar-voz-a-tu-verdad', 'lealtades-familiares', 'universo-emociones'];
+                    const category = workshopIds.includes(workshop.id) ? 'taller' : 'sesion';
+
                     // Flatten fullDescription if it's an array
                     const workshopData = {
                         ...workshop,
+                        category,
                         fullDescription: Array.isArray(workshop.fullDescription)
                             ? workshop.fullDescription
                             : [workshop.fullDescription]
