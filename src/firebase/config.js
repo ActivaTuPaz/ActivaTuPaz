@@ -5,12 +5,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDmo2lY1FYGdW2n3B8-QJdEIZnvgX6XY_E",
-  authDomain: "activa-tu-paz.firebaseapp.com",
-  projectId: "activa-tu-paz",
-  storageBucket: "activa-tu-paz.firebasestorage.app",
-  messagingSenderId: "1039317386150",
-  appId: "1:1039317386150:web:f5637add516da864cd4567"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
