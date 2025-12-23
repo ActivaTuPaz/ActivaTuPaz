@@ -177,7 +177,7 @@ const WorkshopForm = () => {
           font-weight: bold;
         }
 
-        input, textarea {
+        input, textarea, .select-input {
           width: 100%;
           padding: 10px;
           border: 1px solid var(--border);
