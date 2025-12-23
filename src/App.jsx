@@ -8,6 +8,10 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import WorkshopDetail from './components/WorkshopDetail';
+import Login from './components/admin/Login';
+import ProtectedRoute from './components/admin/ProtectedRoute';
+import AdminDashboard from './components/admin/AdminDashboard';
+import WorkshopForm from './components/admin/WorkshopForm';
 
 function App() {
   const [theme, setTheme] = useState('dark');
@@ -40,6 +44,24 @@ function App() {
           </>
         } />
         <Route path="/taller/:id" element={<WorkshopDetail />} />
+
+        {/* Admin Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/new" element={
+          <ProtectedRoute>
+            <WorkshopForm />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/edit/:id" element={
+          <ProtectedRoute>
+            <WorkshopForm />
+          </ProtectedRoute>
+        } />
       </Routes>
 
       <Footer />
