@@ -29,7 +29,7 @@ const WorkshopForm = () => {
         try {
             setLoading(true);
             const workshops = await getWorkshops();
-            const workshop = workshops.find(w => w.id === id);
+            const workshop = workshops.find(w => w.firestoreId === id);
             if (workshop) {
                 // fullDescription might be an array, join it for editing
                 const desc = Array.isArray(workshop.fullDescription)

@@ -6,8 +6,8 @@ const COLLECTION_NAME = 'workshops';
 export const getWorkshops = async () => {
     const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
     return querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
+        ...doc.data(),
+        firestoreId: doc.id
     }));
 };
 

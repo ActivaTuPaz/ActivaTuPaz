@@ -98,15 +98,15 @@ const AdminDashboard = () => {
                 ) : (
                     <div className="workshop-list">
                         {workshops.map(workshop => (
-                            <div key={workshop.id} className="workshop-item">
+                            <div key={workshop.firestoreId} className="workshop-item">
                                 <img src={workshop.image} alt={workshop.title} className="workshop-thumb" />
                                 <div className="workshop-info">
                                     <h3>{workshop.title}</h3>
                                     <p className="short-desc">{workshop.shortDescription}</p>
                                 </div>
                                 <div className="workshop-actions">
-                                    <button onClick={() => navigate(`/admin/edit/${workshop.id}`)} className="edit-btn">✏️</button>
-                                    <button onClick={() => handleDelete(workshop.id)} className="delete-btn">🗑️</button>
+                                    <button onClick={() => navigate(`/admin/edit/${workshop.firestoreId}`)} className="edit-btn">✏️</button>
+                                    <button onClick={() => handleDelete(workshop.firestoreId)} className="delete-btn">🗑️</button>
                                 </div>
                             </div>
                         ))}
