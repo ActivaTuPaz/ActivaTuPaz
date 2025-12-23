@@ -93,8 +93,19 @@ const Services = () => {
     const fetchData = async () => {
       try {
         const data = await getWorkshops();
-        setTalleres(data.filter(w => w.category === 'taller'));
-        setSesiones(data.filter(w => w.category === 'sesion'));
+
+        // Legacy ID list for fallback classification
+        const tallerIds = ['dar-voz-a-tu-verdad', 'lealtades-familiares', 'universo-emociones'];
+
+        setTalleres(data.filter(w =>
+          w.category === 'taller' ||
+          (!w.category && tallerIds.includes(w.id))
+        ));
+
+        setSesiones(data.filter(w =>
+          w.category === 'sesion' ||
+          (!w.category && !tallerIds.includes(w.id))
+        ));
       } catch (error) {
         console.error("Error loading services:", error);
       } finally {
