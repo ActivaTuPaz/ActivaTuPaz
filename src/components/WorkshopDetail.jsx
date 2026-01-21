@@ -142,6 +142,12 @@ const WorkshopDetail = () => {
                 }}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={(e) => {
+                  if (window.gtag_report_conversion) {
+                    e.preventDefault();
+                    window.gtag_report_conversion(e.currentTarget.href);
+                  }
+                }}
               >
                 Escribime y reservá tu lugar <MessageCircle size={20} />
               </motion.a>

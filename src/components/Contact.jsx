@@ -16,6 +16,12 @@ const Contact = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="contact-card whatsapp"
+            onClick={(e) => {
+              if (window.gtag_report_conversion) {
+                e.preventDefault();
+                window.gtag_report_conversion(e.currentTarget.href);
+              }
+            }}
           >
             <MessageCircle size={32} className="icon-color" />
             <div className="card-text">

@@ -16,7 +16,12 @@ const Footer = () => {
         <div className="footer-section">
           <h3>Conectemos</h3>
           <div className="social-icons">
-            <a href={`https://wa.me/5492216492754?text=${encodeURIComponent("Hola, vengo de tu página web y queria consultarte algo")}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <a href={`https://wa.me/5492216492754?text=${encodeURIComponent("Hola, vengo de tu página web y queria consultarte algo")}`} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" onClick={(e) => {
+              if (window.gtag_report_conversion) {
+                 e.preventDefault();
+                 window.gtag_report_conversion(e.currentTarget.href);
+              }
+            }}>
               <MessageCircle size={24} />
             </a>
             <a href="https://www.instagram.com/activatupazinterior?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -40,7 +45,12 @@ const Footer = () => {
         <div className="footer-bottom">
           <p>&copy; 2025 Lorena Calcopietro. Todos los derechos reservados.</p>
           <p className="developer">
-            Desarrollado por <a href="https://wa.me/5493541315119" target="_blank" rel="noopener noreferrer">Franco Zvilling</a>
+            Desarrollado por <a href="https://wa.me/5493541315119" target="_blank" rel="noopener noreferrer" onClick={(e) => {
+              if (window.gtag_report_conversion) {
+                 e.preventDefault();
+                 window.gtag_report_conversion(e.currentTarget.href);
+              }
+            }}>Franco Zvilling</a>
           </p>
         </div>
       </div>

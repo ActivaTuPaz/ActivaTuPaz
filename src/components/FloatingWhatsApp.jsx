@@ -8,6 +8,12 @@ const FloatingWhatsApp = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
+      onClick={(e) => {
+        if (window.gtag_report_conversion) {
+          e.preventDefault();
+          window.gtag_report_conversion(e.currentTarget.href);
+        }
+      }}
     >
       <MessageCircle size={32} />
       <style jsx="true">{`
