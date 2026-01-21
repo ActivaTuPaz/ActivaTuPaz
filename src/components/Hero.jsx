@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getSiteConfig } from '../services/configService';
 import cover0 from '../assets/images/cover0.png';
 import cover0Mobile from '../assets/images/cover0-movil.png';
 import coverImage from '../assets/images/cover.webp';
@@ -8,16 +9,43 @@ import coverImage4 from '../assets/images/cover4.webp';
 
 const Hero = () => {
   // Carousel images (Bottom)
-  const carouselImages = [coverImage, coverImage4, coverImage2, coverImage3];
+  const defaultCarouselImages = [coverImage, coverImage4, coverImage2, coverImage3];
+
+  const [heroConfig, setHeroConfig] = useState({
+    staticImage: cover0,
+    staticImageMobile: cover0Mobile,
+    carouselImages: defaultCarouselImages
+  });
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const config = await getSiteConfig();
+        if (config && config.hero) {
+          setHeroConfig(prev => ({
+            staticImage: config.hero.staticImage || prev.staticImage,
+            staticImageMobile: config.hero.staticImageMobile || prev.staticImageMobile || config.hero.staticImage, // Fallback chain
+            carouselImages: (config.hero.carouselImages && config.hero.carouselImages.length > 0)
+              ? config.hero.carouselImages
+              : prev.carouselImages
+          }));
+        }
+      } catch (error) {
+        console.error("Error loading hero config:", error);
+      }
+    };
+    fetchConfig();
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % heroConfig.carouselImages.length);
     }, 15000); // Change every 15 seconds
 
     return () => clearInterval(interval);
-  }, [currentIndex, carouselImages.length]);
+  }, [currentIndex, heroConfig.carouselImages.length]);
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
@@ -36,7 +64,7 @@ const Hero = () => {
 
       {/* Bottom Section: Mini Carousel */}
       <div className="hero-mini-carousel">
-        {carouselImages.map((img, index) => (
+        {heroConfig.carouselImages.map((img, index) => (
           <img
             key={index}
             src={img}
@@ -46,7 +74,7 @@ const Hero = () => {
         ))}
 
         <div className="carousel-dots">
-          {carouselImages.map((_, index) => (
+          {heroConfig.carouselImages.map((_, index) => (
             <button
               key={index}
               className={`dot ${index === currentIndex ? 'active' : ''}`}
@@ -96,7 +124,7 @@ const Hero = () => {
           position: absolute;
           top: 0;
           left: 0;
-          background-image: url(${cover0});
+          background-image: url(${heroConfig.staticImage});
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -221,7 +249,7 @@ const Hero = () => {
           }
           
           .hero-static-bg {
-            background-image: url(${cover0Mobile});
+            background-image: url(${heroConfig.staticImageMobile});
             transform: scale(1.1);
           }
            .hero-content {

@@ -1,11 +1,36 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getSiteConfig } from '../services/configService';
 import meDark from '../assets/images/me-dark.webp';
 import meWhite from '../assets/images/me-white.webp';
 
 const About = ({ theme }) => {
   const [showVideo, setShowVideo] = useState(false);
+  const [aboutConfig, setAboutConfig] = useState({
+    imageLight: meWhite,
+    imageDark: meDark,
+    bio: null, // If null, render default text
+    videoUrl: "https://www.youtube.com/embed/ttWUi56Duog?si=4jVX6tU6GnYpyZN3"
+  });
+
+  useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const config = await getSiteConfig();
+        if (config && config.about) {
+          setAboutConfig(prev => ({
+            imageLight: config.about.imageLight || prev.imageLight,
+            imageDark: config.about.imageDark || prev.imageDark,
+            bio: config.about.bio || null,
+            videoUrl: config.about.videoUrl || prev.videoUrl
+          }));
+        }
+      } catch (error) {
+        console.error("Error loading about config:", error);
+      }
+    };
+    fetchConfig();
+  }, []);
 
   const toggleMedia = () => {
     setShowVideo(!showVideo);
@@ -18,7 +43,7 @@ const About = ({ theme }) => {
           <div className="media-wrapper">
             {!showVideo ? (
               <img
-                src={theme === 'light' ? meWhite : meDark}
+                src={theme === 'light' ? aboutConfig.imageLight : aboutConfig.imageDark}
                 alt="Terapeuta"
                 className="about-image"
                 style={{ transition: 'opacity 0.3s ease' }}
@@ -27,7 +52,7 @@ const About = ({ theme }) => {
               <iframe
                 width="100%"
                 height="100%"
-                src="https://www.youtube.com/embed/ttWUi56Duog?si=4jVX6tU6GnYpyZN3"
+                src={aboutConfig.videoUrl}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -48,17 +73,25 @@ const About = ({ theme }) => {
 
         <div className="about-text">
           <h2 className="section-title" style={{ textAlign: 'left' }}>Sobre Mí</h2>
-          <p>
-            Soy María Lorena Calcopietro, Licenciada en Comunicación Social y fundadora de <a href="https://www.instagram.com/activatupazinterior?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" className="brand-link">Activa tu Paz Interior</a>, un espacio dedicado a la sanación emocional para lograr el bienestar.
-            Mi misión es acompañarte en un camino de autoconocimiento para que puedas identificar emociones, bloqueos y patrones que influyen en tu armonía.
-          </p>
-          <p>
-            A través de métodos como la biodecodificación emocional, constelaciones familiares y los Registros Akáshicos, te invito a explorar tu mundo interior y abrir espacio a la transformación.
-            Creo en el poder de sanar cuando escuchamos nuestro cuerpo y nuestras emociones.
-          </p>
-          <p>
-            En <a href="https://www.instagram.com/activatupazinterior?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" className="brand-link">Activa tu Paz Interior</a> encontrarás un sitio seguro para reconectar con tu esencia y transformar tu historia desde la raíz.
-          </p>
+          {aboutConfig.bio ? (
+            aboutConfig.bio.split('\n').map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))
+          ) : (
+            <>
+              <p>
+                Soy María Lorena Calcopietro, Licenciada en Comunicación Social y fundadora de <a href="https://www.instagram.com/activatupazinterior?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" className="brand-link">Activa tu Paz Interior</a>, un espacio dedicado a la sanación emocional para lograr el bienestar.
+                Mi misión es acompañarte en un camino de autoconocimiento para que puedas identificar emociones, bloqueos y patrones que influyen en tu armonía.
+              </p>
+              <p>
+                A través de métodos como la biodecodificación emocional, constelaciones familiares y los Registros Akáshicos, te invito a explorar tu mundo interior y abrir espacio a la transformación.
+                Creo en el poder de sanar cuando escuchamos nuestro cuerpo y nuestras emociones.
+              </p>
+              <p>
+                En <a href="https://www.instagram.com/activatupazinterior?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" className="brand-link">Activa tu Paz Interior</a> encontrarás un sitio seguro para reconectar con tu esencia y transformar tu historia desde la raíz.
+              </p>
+            </>
+          )}
         </div>
       </div>
 

@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { getWorkshops, deleteWorkshop, addWorkshop } from '../../services/workshopService';
 import { workshops as initialWorkshops } from '../../data/workshops'; // For migration
+import GeneralConfigForm from './GeneralConfigForm';
+import { Layers, Settings } from 'lucide-react';
 
 const AdminDashboard = () => {
     const { logout, currentUser } = useAuth();
     const navigate = useNavigate();
     const [workshops, setWorkshops] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [activeTab, setActiveTab] = useState('workshops');
 
     useEffect(() => {
         fetchWorkshops();
@@ -85,33 +88,57 @@ const AdminDashboard = () => {
                 </div>
             </div>
 
-            <div className="admin-content">
-                <div className="actions-bar">
-                    <button className="primary-btn" onClick={() => navigate('/admin/new')}>➕ Nuevo Taller</button>
-                    {workshops.length === 0 && (
-                        <button className="secondary-btn" onClick={handleMigrate}>🔄 Migrar Datos Iniciales</button>
-                    )}
-                </div>
+            <div className="admin-tabs">
+                <button
+                    className={`tab-btn ${activeTab === 'workshops' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('workshops')}
+                >
+                    <Layers size={18} /> Talleres y Sesiones
+                </button>
+                <button
+                    className={`tab-btn ${activeTab === 'config' ? 'active' : ''}`}
+                    onClick={() => setActiveTab('config')}
+                >
+                    <Settings size={18} /> Configuración General
+                </button>
+            </div>
 
-                {loading ? (
-                    <p>Cargando...</p>
-                ) : (
-                    <div className="workshop-list">
-                        {workshops.map(workshop => (
-                            <div key={workshop.firestoreId} className="workshop-item">
-                                <img src={workshop.image} alt={workshop.title} className="workshop-thumb" />
-                                <div className="workshop-info">
-                                    <h3>{workshop.title}</h3>
-                                    <p className="short-desc">{workshop.shortDescription}</p>
-                                </div>
-                                <div className="workshop-actions">
-                                    <button onClick={() => navigate(`/admin/edit/${workshop.firestoreId}`)} className="edit-btn">✏️</button>
-                                    <button onClick={() => handleDelete(workshop.firestoreId)} className="delete-btn">🗑️</button>
-                                </div>
+            <div className="admin-content">
+                {activeTab === 'workshops' ? (
+                    <>
+                        <div className="actions-bar">
+                            <button className="primary-btn" onClick={() => navigate('/admin/new')}>➕ Nuevo Taller</button>
+                            {workshops.length === 0 && (
+                                <button className="secondary-btn" onClick={handleMigrate}>🔄 Migrar Datos Iniciales</button>
+                            )}
+                        </div>
+
+                        {loading ? (
+                            <p>Cargando...</p>
+                        ) : (
+                            <div className="workshop-list">
+                                {workshops.map(workshop => (
+                                    <div key={workshop.firestoreId} className="workshop-item">
+                                        <img src={workshop.image} alt={workshop.title} className="workshop-thumb" />
+                                        <div className="workshop-info">
+                                            <h3>{workshop.title}</h3>
+                                            <p className="category-badge">
+                                                {workshop.category === 'taller' ? 'Taller' : 'Sesión'}
+                                            </p>
+                                            <p className="short-desc">{workshop.shortDescription}</p>
+                                        </div>
+                                        <div className="workshop-actions">
+                                            <button onClick={() => navigate(`/admin/edit/${workshop.firestoreId}`)} className="edit-btn">✏️</button>
+                                            <button onClick={() => handleDelete(workshop.firestoreId)} className="delete-btn">🗑️</button>
+                                        </div>
+                                    </div>
+                                ))}
+                                {workshops.length === 0 && <p>No hay talleres cargados. Usá el botón de migrar o creá uno nuevo.</p>}
                             </div>
-                        ))}
-                        {workshops.length === 0 && <p>No hay talleres cargados. Usá el botón de migrar o creá uno nuevo.</p>}
-                    </div>
+                        )}
+                    </>
+                ) : (
+                    <GeneralConfigForm />
                 )}
             </div>
 
@@ -219,6 +246,51 @@ const AdminDashboard = () => {
             border-radius: 4px;
             cursor: pointer;
             font-size: 1rem;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            border-bottom: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background-color: rgba(0,0,0,0.05); 
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            font-weight: bold;
+        }
+
+        .category-badge {
+            display: inline-block;
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
       `}</style>
         </div>
