@@ -24,7 +24,7 @@ const Footer = () => {
             }}>
               <MessageCircle size={24} />
             </a>
-            <a href="https://www.instagram.com/activatupazinterior?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a href="https://www.instagram.com/lorenacalcopietro.bio?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <Instagram size={24} />
             </a>
           </div>

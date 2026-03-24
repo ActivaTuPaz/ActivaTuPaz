@@ -80,7 +80,7 @@ const About = ({ theme }) => {
           ) : (
             <>
               <p>
-                Soy María Lorena Calcopietro, Licenciada en Comunicación Social y fundadora de <a href="https://www.instagram.com/activatupazinterior?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" className="brand-link">Activa tu Paz Interior</a>, un espacio dedicado a la sanación emocional para lograr el bienestar.
+                Soy María Lorena Calcopietro, Licenciada en Comunicación Social y fundadora de <a href="https://www.instagram.com/lorenacalcopietro.bio?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" className="brand-link">Activa tu Paz Interior</a>, un espacio dedicado a la sanación emocional para lograr el bienestar.
                 Mi misión es acompañarte en un camino de autoconocimiento para que puedas identificar emociones, bloqueos y patrones que influyen en tu armonía.
               </p>
               <p>
@@ -88,7 +88,7 @@ const About = ({ theme }) => {
                 Creo en el poder de sanar cuando escuchamos nuestro cuerpo y nuestras emociones.
               </p>
               <p>
-                En <a href="https://www.instagram.com/activatupazinterior?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" className="brand-link">Activa tu Paz Interior</a> encontrarás un sitio seguro para reconectar con tu esencia y transformar tu historia desde la raíz.
+                En <a href="https://www.instagram.com/lorenacalcopietro.bio?igsh=dzJhd3l1YnR4czJv&utm_source=qr" target="_blank" rel="noopener noreferrer" className="brand-link">Activa tu Paz Interior</a> encontrarás un sitio seguro para reconectar con tu esencia y transformar tu historia desde la raíz.
               </p>
             </>
           )}

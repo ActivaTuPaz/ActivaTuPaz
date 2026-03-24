@@ -32,7 +32,7 @@ const Contact = () => {
 
           {/* Instagram - Primary Action */}
           <a
-            href="https://www.instagram.com/activatupazinterior?igsh=dzJhd3l1YnR4czJv&utm_source=qr"
+            href="https://www.instagram.com/lorenacalcopietro.bio?igsh=dzJhd3l1YnR4czJv&utm_source=qr"
             target="_blank"
             rel="noopener noreferrer"
             className="contact-card instagram"
@@ -40,7 +40,7 @@ const Contact = () => {
             <Instagram size={32} className="icon-color" />
             <div className="card-text">
               <h3>Instagram</h3>
-              <span>@activatupazinterior</span>
+              <span>@lorenacalcopietro.bio</span>
             </div>
           </a>
         </div>
