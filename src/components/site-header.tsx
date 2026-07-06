@@ -3,12 +3,13 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { WHATSAPP_URL } from "@/lib/contact";
 
-const links: { to: "/" | "/desde-la-raiz" | "/mujer-re-nace" | "/sobre-mi" | "/contacto"; hash?: string; label: string }[] = [
+const links: { to: "/" | "/desde-la-raiz" | "/mujer-re-nace" | "/sobre-mi" | "/contacto" | "/entrevista-previa"; hash?: string; label: string }[] = [
   { to: "/", label: "Inicio" },
   { to: "/desde-la-raiz", label: "Desde la Raíz" },
   { to: "/mujer-re-nace", label: "Mujer Re-Nace" },
   { to: "/sobre-mi", label: "Sobre mí" },
   { to: "/", hash: "recursos", label: "Recursos" },
+  { to: "/entrevista-previa", label: "Entrevista" },
   { to: "/contacto", label: "Contacto" },
 ];
 

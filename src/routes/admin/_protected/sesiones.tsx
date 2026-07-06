@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { getSessionsData, saveSessionsData, SessionsData } from "@/lib/admin-data";
-import { Save, Plus, Trash2, List } from "lucide-react";
+import { Save, Plus, Trash2, List, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/admin/_protected/sesiones")({
@@ -10,21 +10,33 @@ export const Route = createFileRoute("/admin/_protected/sesiones")({
 
 function AdminSessionsPage() {
   const [data, setData] = useState<SessionsData | null>(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    setData(getSessionsData());
+    getSessionsData().then(setData);
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (data) {
-      saveSessionsData(data);
-      toast.success("Cambios guardados con éxito", {
-        description: "La sección Sesiones Individuales ha sido actualizada.",
-      });
+      setSaving(true);
+      try {
+        await saveSessionsData(data);
+        toast.success("Cambios guardados con éxito", {
+          description: "La sección Sesiones Individuales ha sido actualizada.",
+        });
+      } catch (err) {
+        toast.error("Error al guardar");
+      } finally {
+        setSaving(false);
+      }
     }
   };
 
-  if (!data) return null;
+  if (!data) return (
+    <div className="flex justify-center items-center h-64">
+      <Loader2 className="size-8 animate-spin text-earth/50" />
+    </div>
+  );
 
   return (
     <div className="space-y-10 pb-20 animate-fade">
@@ -37,9 +49,11 @@ function AdminSessionsPage() {
         </div>
         <button
           onClick={handleSave}
-          className="inline-flex items-center gap-2 bg-sage text-sand px-6 py-3 rounded-full text-sm font-medium hover:bg-sage/90 transition-colors shadow-soft cursor-pointer"
+          disabled={saving}
+          className="inline-flex items-center gap-2 bg-sage text-sand px-6 py-3 rounded-full text-sm font-medium hover:bg-sage/90 transition-colors shadow-soft cursor-pointer disabled:opacity-50"
         >
-          <Save className="size-4" /> Guardar Cambios
+          {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
+          {saving ? "Guardando..." : "Guardar Cambios"}
         </button>
       </div>
 

@@ -188,9 +188,9 @@ function Index() {
   const [sessionsData, setSessionsData] = useState<SessionsData>(defaultSessionsData);
 
   useEffect(() => {
-    setHeroData(getHeroData());
-    setMethodologyData(getMethodologyData());
-    setSessionsData(getSessionsData());
+    getHeroData().then(setHeroData);
+    getMethodologyData().then(setMethodologyData);
+    getSessionsData().then(setSessionsData);
   }, []);
 
   const renderTitle = (title: string) => {

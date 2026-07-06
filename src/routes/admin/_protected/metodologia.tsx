@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { getMethodologyData, saveMethodologyData, fileToBase64, MethodologyData } from "@/lib/admin-data";
-import { Save, Plus, Trash2, Image as ImageIcon, Upload, List } from "lucide-react";
+import { getMethodologyData, saveMethodologyData, uploadFile, MethodologyData } from "@/lib/admin-data";
+import { Save, Plus, Trash2, Image as ImageIcon, Upload, List, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/admin/_protected/metodologia")({
@@ -10,21 +10,33 @@ export const Route = createFileRoute("/admin/_protected/metodologia")({
 
 function AdminMethodologyPage() {
   const [data, setData] = useState<MethodologyData | null>(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    setData(getMethodologyData());
+    getMethodologyData().then(setData);
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (data) {
-      saveMethodologyData(data);
-      toast.success("Cambios guardados con éxito", {
-        description: "La sección Metodología ha sido actualizada.",
-      });
+      setSaving(true);
+      try {
+        await saveMethodologyData(data);
+        toast.success("Cambios guardados con éxito", {
+          description: "La sección Metodología ha sido actualizada.",
+        });
+      } catch (err) {
+        toast.error("Error al guardar");
+      } finally {
+        setSaving(false);
+      }
     }
   };
 
-  if (!data) return null;
+  if (!data) return (
+    <div className="flex justify-center items-center h-64">
+      <Loader2 className="size-8 animate-spin text-earth/50" />
+    </div>
+  );
 
   return (
     <div className="space-y-10 pb-20 animate-fade">
@@ -37,9 +49,11 @@ function AdminMethodologyPage() {
         </div>
         <button
           onClick={handleSave}
-          className="inline-flex items-center gap-2 bg-sage text-sand px-6 py-3 rounded-full text-sm font-medium hover:bg-sage/90 transition-colors shadow-soft cursor-pointer"
+          disabled={saving}
+          className="inline-flex items-center gap-2 bg-sage text-sand px-6 py-3 rounded-full text-sm font-medium hover:bg-sage/90 transition-colors shadow-soft cursor-pointer disabled:opacity-50"
         >
-          <Save className="size-4" /> Guardar Cambios
+          {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
+          {saving ? "Guardando..." : "Guardar Cambios"}
         </button>
       </div>
 
@@ -199,8 +213,14 @@ function AdminMethodologyPage() {
                       onChange={async (e) => {
                         const file = e.target.files?.[0];
                         if (file) {
-                          const b64 = await fileToBase64(file);
-                          setData({ ...data, image: b64 });
+                          toast.loading("Subiendo imagen...", { id: "upload-meth" });
+                          try {
+                            const url = await uploadFile(file, 'images');
+                            setData({ ...data, image: url });
+                            toast.success("Imagen subida", { id: "upload-meth" });
+                          } catch (err) {
+                            toast.error("Error al subir", { id: "upload-meth" });
+                          }
                         }
                       }}
                     />

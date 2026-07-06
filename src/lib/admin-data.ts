@@ -1,6 +1,9 @@
 import lorenaReal from "@/assets/lorena-real.jpg";
 import todoEsDivino from "@/assets/todo-es-divino.jpg";
 import handsCup from "@/assets/hands-cup.jpg";
+import { db, storage } from "./firebase";
+import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export type ResourcePDF = {
   id: string;
@@ -18,8 +21,6 @@ export type HeroData = {
   ctaText: string;
   resources: ResourcePDF[];
 };
-
-const HERO_DATA_KEY = "lorena_hero_data";
 
 export const defaultHeroData: HeroData = {
   title: "Eso que tu cuerpo repite tiene *origen*. Y tiene salida.",
@@ -53,22 +54,25 @@ export const defaultHeroData: HeroData = {
   ],
 };
 
-export function getHeroData(): HeroData {
-  if (typeof window === "undefined") return defaultHeroData;
-  const stored = localStorage.getItem(HERO_DATA_KEY);
-  if (stored) {
-    try {
-      return JSON.parse(stored) as HeroData;
-    } catch (e) {
-      console.error("Error parsing hero data", e);
+export async function getHeroData(): Promise<HeroData> {
+  try {
+    const docRef = doc(db, "content", "hero");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data() as HeroData;
     }
+  } catch (error) {
+    console.error("Error fetching hero data", error);
   }
   return defaultHeroData;
 }
 
-export function saveHeroData(data: HeroData): void {
-  if (typeof window !== "undefined") {
-    localStorage.setItem(HERO_DATA_KEY, JSON.stringify(data));
+export async function saveHeroData(data: HeroData): Promise<void> {
+  try {
+    await setDoc(doc(db, "content", "hero"), data);
+  } catch (error) {
+    console.error("Error saving hero data", error);
+    throw error;
   }
 }
 
@@ -76,7 +80,7 @@ export function saveHeroData(data: HeroData): void {
 
 export type MethodologyCard = {
   id: string;
-  icon: string; // 'leaf' | 'heart' | etc.
+  icon: string;
   title: string;
   description: string;
 };
@@ -87,8 +91,6 @@ export type MethodologyData = {
   image: string;
   cards: MethodologyCard[];
 };
-
-const METHODOLOGY_DATA_KEY = "lorena_methodology_data";
 
 export const defaultMethodologyData: MethodologyData = {
   title: "¿Qué es la *biodecodificación*?",
@@ -110,22 +112,25 @@ export const defaultMethodologyData: MethodologyData = {
   ]
 };
 
-export function getMethodologyData(): MethodologyData {
-  if (typeof window === "undefined") return defaultMethodologyData;
-  const stored = localStorage.getItem(METHODOLOGY_DATA_KEY);
-  if (stored) {
-    try {
-      return JSON.parse(stored) as MethodologyData;
-    } catch (e) {
-      console.error("Error parsing methodology data", e);
+export async function getMethodologyData(): Promise<MethodologyData> {
+  try {
+    const docRef = doc(db, "content", "methodology");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data() as MethodologyData;
     }
+  } catch (error) {
+    console.error("Error fetching methodology data", error);
   }
   return defaultMethodologyData;
 }
 
-export function saveMethodologyData(data: MethodologyData): void {
-  if (typeof window !== "undefined") {
-    localStorage.setItem(METHODOLOGY_DATA_KEY, JSON.stringify(data));
+export async function saveMethodologyData(data: MethodologyData): Promise<void> {
+  try {
+    await setDoc(doc(db, "content", "methodology"), data);
+  } catch (error) {
+    console.error("Error saving methodology data", error);
+    throw error;
   }
 }
 
@@ -133,7 +138,7 @@ export function saveMethodologyData(data: MethodologyData): void {
 
 export type SessionCard = {
   id: string;
-  icon: string; // 'compass' | 'zap' | 'heart' | 'star' | etc.
+  icon: string;
   eyebrow: string;
   title: string;
   description: string;
@@ -142,7 +147,7 @@ export type SessionCard = {
   price: string;
   hasPromo: boolean;
   oldPrice: string;
-  isPopular: boolean; // For "Más elegida" badge
+  isPopular: boolean;
 };
 
 export type SessionsData = {
@@ -151,8 +156,6 @@ export type SessionsData = {
   sectionDescription: string;
   cards: SessionCard[];
 };
-
-const SESSIONS_DATA_KEY = "lorena_sessions_data";
 
 export const defaultSessionsData: SessionsData = {
   sectionEyebrow: "Sesiones individuales",
@@ -188,31 +191,51 @@ export const defaultSessionsData: SessionsData = {
   ]
 };
 
-export function getSessionsData(): SessionsData {
-  if (typeof window === "undefined") return defaultSessionsData;
-  const stored = localStorage.getItem(SESSIONS_DATA_KEY);
-  if (stored) {
-    try {
-      return JSON.parse(stored) as SessionsData;
-    } catch (e) {
-      console.error("Error parsing sessions data", e);
+export async function getSessionsData(): Promise<SessionsData> {
+  try {
+    const docRef = doc(db, "content", "sessions");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data() as SessionsData;
     }
+  } catch (error) {
+    console.error("Error fetching sessions data", error);
   }
   return defaultSessionsData;
 }
 
-export function saveSessionsData(data: SessionsData): void {
-  if (typeof window !== "undefined") {
-    localStorage.setItem(SESSIONS_DATA_KEY, JSON.stringify(data));
+export async function saveSessionsData(data: SessionsData): Promise<void> {
+  try {
+    await setDoc(doc(db, "content", "sessions"), data);
+  } catch (error) {
+    console.error("Error saving sessions data", error);
+    throw error;
   }
 }
 
-// Convert a file to base64 so we can save it in localStorage temporarily
-export function fileToBase64(file: File): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
+// Upload a file to Firebase Storage and return its public URL
+export async function uploadFile(file: File, folder: string = 'uploads'): Promise<string> {
+  try {
+    const filename = `${Date.now()}_${file.name}`;
+    const storageRef = ref(storage, `${folder}/${filename}`);
+    const snapshot = await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(snapshot.ref);
+    return downloadURL;
+  } catch (error) {
+    console.error("Error uploading file to storage", error);
+    throw error;
+  }
+}
+
+export async function saveEntrevista(data: any): Promise<void> {
+  try {
+    const payload = {
+      ...data,
+      timestamp: new Date().toISOString()
+    };
+    await addDoc(collection(db, "entrevistas"), payload);
+  } catch (error) {
+    console.error("Error saving entrevista", error);
+    throw error;
+  }
 }

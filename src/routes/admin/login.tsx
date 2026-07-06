@@ -12,18 +12,22 @@ function AdminLogin() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  
+  // We hide the email from the UI to keep it simple for the user, 
+  // they only need to remember their password.
+  const email = "admin@lorenacalcopietro.com.ar";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    const success = await login(password);
+    const success = await login(email, password);
     
     if (success) {
       toast.success("¡Bienvenida de nuevo, Lore!");
       navigate({ to: "/admin" });
     } else {
-      toast.error("Contraseña incorrecta");
+      toast.error("Contraseña incorrecta o usuario no encontrado");
       setIsLoading(false);
     }
   };

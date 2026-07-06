@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { getHeroData, saveHeroData, fileToBase64, HeroData, ResourcePDF } from "@/lib/admin-data";
-import { Save, Plus, Trash2, Image as ImageIcon, Upload, FileText } from "lucide-react";
+import { getHeroData, saveHeroData, uploadFile, HeroData } from "@/lib/admin-data";
+import { Save, Plus, Trash2, Image as ImageIcon, Upload, FileText, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/admin/_protected/")({
@@ -10,21 +10,33 @@ export const Route = createFileRoute("/admin/_protected/")({
 
 function AdminHeroPage() {
   const [data, setData] = useState<HeroData | null>(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    setData(getHeroData());
+    getHeroData().then(setData);
   }, []);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (data) {
-      saveHeroData(data);
-      toast.success("Cambios guardados con éxito", {
-        description: "El Hero Section y los PDFs han sido actualizados.",
-      });
+      setSaving(true);
+      try {
+        await saveHeroData(data);
+        toast.success("Cambios guardados con éxito", {
+          description: "El Hero Section y los PDFs han sido actualizados en la nube.",
+        });
+      } catch (error) {
+        toast.error("Error al guardar");
+      } finally {
+        setSaving(false);
+      }
     }
   };
 
-  if (!data) return null;
+  if (!data) return (
+    <div className="flex justify-center items-center h-64">
+      <Loader2 className="size-8 animate-spin text-earth/50" />
+    </div>
+  );
 
   return (
     <div className="space-y-10 pb-20 animate-fade">
@@ -37,9 +49,11 @@ function AdminHeroPage() {
         </div>
         <button
           onClick={handleSave}
-          className="inline-flex items-center gap-2 bg-sage text-sand px-6 py-3 rounded-full text-sm font-medium hover:bg-sage/90 transition-colors shadow-soft cursor-pointer"
+          disabled={saving}
+          className="inline-flex items-center gap-2 bg-sage text-sand px-6 py-3 rounded-full text-sm font-medium hover:bg-sage/90 transition-colors shadow-soft cursor-pointer disabled:opacity-50"
         >
-          <Save className="size-4" /> Guardar Cambios
+          {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />} 
+          {saving ? "Guardando..." : "Guardar Cambios"}
         </button>
       </div>
 
@@ -184,10 +198,29 @@ function AdminHeroPage() {
                         placeholder="/recursos/archivo.pdf"
                         className="flex-1 bg-sand/50 border border-earth/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-sage transition-colors"
                       />
-                      {/* Simulación de botón de subida */}
-                      <button className="bg-earth/5 text-earth px-4 py-2 rounded-xl text-sm hover:bg-earth/10 transition-colors flex items-center gap-2 cursor-pointer">
+                      <label className="bg-earth/5 text-earth px-4 py-2 rounded-xl text-sm hover:bg-earth/10 transition-colors flex items-center gap-2 cursor-pointer">
                         <Upload className="size-4" /> Subir
-                      </button>
+                        <input
+                          type="file"
+                          accept="application/pdf"
+                          className="hidden"
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              toast.loading("Subiendo PDF...", { id: "upload-pdf" });
+                              try {
+                                const url = await uploadFile(file, 'pdfs');
+                                const newResources = [...data.resources];
+                                newResources[index].fileUrl = url;
+                                setData({ ...data, resources: newResources });
+                                toast.success("PDF subido", { id: "upload-pdf" });
+                              } catch(err) {
+                                toast.error("Error al subir el PDF", { id: "upload-pdf" });
+                              }
+                            }
+                          }}
+                        />
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -230,8 +263,14 @@ function AdminHeroPage() {
                         onChange={async (e) => {
                           const file = e.target.files?.[0];
                           if (file) {
-                            const b64 = await fileToBase64(file);
-                            setData({ ...data, mainImage: b64 });
+                            toast.loading("Subiendo imagen...", { id: "upload-img1" });
+                            try {
+                              const url = await uploadFile(file, 'images');
+                              setData({ ...data, mainImage: url });
+                              toast.success("Imagen subida", { id: "upload-img1" });
+                            } catch(err) {
+                              toast.error("Error al subir", { id: "upload-img1" });
+                            }
                           }
                         }}
                       />
@@ -261,8 +300,14 @@ function AdminHeroPage() {
                         onChange={async (e) => {
                           const file = e.target.files?.[0];
                           if (file) {
-                            const b64 = await fileToBase64(file);
-                            setData({ ...data, secondaryImage: b64 });
+                            toast.loading("Subiendo imagen...", { id: "upload-img2" });
+                            try {
+                              const url = await uploadFile(file, 'images');
+                              setData({ ...data, secondaryImage: url });
+                              toast.success("Imagen subida", { id: "upload-img2" });
+                            } catch (err) {
+                              toast.error("Error al subir", { id: "upload-img2" });
+                            }
                           }
                         }}
                       />

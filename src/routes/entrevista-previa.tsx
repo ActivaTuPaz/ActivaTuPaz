@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Heart, Send, Sparkles, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { saveEntrevista } from "@/lib/admin-data";
 
 export const Route = createFileRoute("/entrevista-previa")({
   head: () => ({
@@ -87,12 +88,16 @@ function EntrevistaPrevia() {
       return;
     }
     setSending(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setSending(false);
-    
-    setDone(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    setTimeout(() => navigate({ to: "/" }), 6000);
+    try {
+      await saveEntrevista(form);
+      setDone(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => navigate({ to: "/" }), 6000);
+    } catch (error) {
+      toast.error("Hubo un error al enviar tu entrevista. Por favor intentá de nuevo.");
+    } finally {
+      setSending(false);
+    }
   };
 
   if (done) {

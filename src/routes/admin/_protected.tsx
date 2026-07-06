@@ -21,9 +21,9 @@ function AdminLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-sand flex text-earth">
+    <div className="h-screen bg-sand flex text-earth overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-64 bg-cream border-r border-earth/10 flex flex-col hidden md:flex">
+      <aside className="w-64 bg-cream border-r border-earth/10 flex flex-col hidden md:flex shrink-0">
         <div className="p-6 border-b border-earth/10">
           <span className="font-serif text-xl tracking-tight uppercase block text-earth">
             Lorena Admin
