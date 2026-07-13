@@ -1,6 +1,6 @@
 import { createFileRoute, redirect, Outlet, Link, useNavigate } from "@tanstack/react-router";
 import { isAuthenticated, logout } from "@/lib/auth";
-import { LayoutDashboard, LogOut, FileText } from "lucide-react";
+import { LayoutDashboard, LogOut, FileText, Inbox } from "lucide-react";
 
 export const Route = createFileRoute("/admin/_protected")({
   beforeLoad: () => {
@@ -51,6 +51,13 @@ function AdminLayout() {
           >
             <FileText className="size-4" />
             Sesiones Indiv.
+          </Link>
+          <Link
+            to="/admin/entrevistas"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-earth/5 transition-colors [&.active]:bg-sage/15 [&.active]:text-sage"
+          >
+            <Inbox className="size-4" />
+            Entrevistas
           </Link>
         </nav>
         <div className="p-4 border-t border-earth/10">

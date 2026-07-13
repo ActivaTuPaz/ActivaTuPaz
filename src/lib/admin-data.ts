@@ -2,7 +2,7 @@ import lorenaReal from "@/assets/lorena-real.jpg";
 import todoEsDivino from "@/assets/todo-es-divino.jpg";
 import handsCup from "@/assets/hands-cup.jpg";
 import { db, storage } from "./firebase";
-import { doc, getDoc, setDoc, addDoc, collection } from "firebase/firestore";
+import { doc, getDoc, setDoc, addDoc, collection, getDocs, query, orderBy } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export type ResourcePDF = {
@@ -237,5 +237,48 @@ export async function saveEntrevista(data: any): Promise<void> {
   } catch (error) {
     console.error("Error saving entrevista", error);
     throw error;
+  }
+}
+
+export type EntrevistaData = {
+  id: string;
+  nombre: string;
+  edad: string;
+  email: string;
+  telefono: string;
+  ciudad: string;
+  fecha_nacimiento: string;
+  como_conocio: string;
+  motivo_consulta: string;
+  sintomas_fisicos: string;
+  emociones_recurrentes: string;
+  expectativas: string;
+  historia_padres: string;
+  historia_hermanos: string;
+  historia_abuelos: string;
+  hijos_embarazos: string;
+  duelos_perdidas: string;
+  secretos_familiares: string;
+  eventos_significativos: string;
+  vinculos_pareja: string;
+  trabajo_vocacion: string;
+  programa_interes: string;
+  observaciones: string;
+  consentimiento: boolean;
+  timestamp: string;
+};
+
+export async function getEntrevistas(): Promise<EntrevistaData[]> {
+  try {
+    const q = query(collection(db, "entrevistas"), orderBy("timestamp", "desc"));
+    const querySnapshot = await getDocs(q);
+    const entrevistas: EntrevistaData[] = [];
+    querySnapshot.forEach((docSnap) => {
+      entrevistas.push({ id: docSnap.id, ...docSnap.data() } as EntrevistaData);
+    });
+    return entrevistas;
+  } catch (error) {
+    console.error("Error fetching entrevistas", error);
+    return [];
   }
 }
