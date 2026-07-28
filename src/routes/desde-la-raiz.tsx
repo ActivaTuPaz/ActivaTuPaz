@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Check, Clock, Calendar, Leaf, Sparkles, Eye } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, Check, Clock, Calendar, Leaf, Sparkles, Eye, Heart, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
 import desdeLaRaiz from "@/assets/desde-la-raiz.jpg";
 import { WHATSAPP_URL } from "@/lib/contact";
+import { getProgramsData, ProgramsData } from "@/lib/admin-data";
 
 export const Route = createFileRoute("/desde-la-raiz")({
   head: () => ({
@@ -44,6 +45,25 @@ const incluye = [
 ];
 
 function DesdeLaRaiz() {
+  const [programsData, setProgramsData] = useState<ProgramsData | null>(null);
+
+  useEffect(() => {
+    getProgramsData().then(setProgramsData);
+  }, []);
+
+  const data = programsData?.desdeLaRaiz;
+
+  const renderIcon = (name: string, className: string) => {
+    switch (name) {
+      case "clock": return <Clock className={className} />;
+      case "sparkles": return <Sparkles className={className} />;
+      case "leaf": return <Leaf className={className} />;
+      case "heart": return <Heart className={className} />;
+      case "calendar":
+      default: return <Calendar className={className} />;
+    }
+  };
+
   return (
     <div className="bg-sand">
       {/* HERO */}
@@ -126,47 +146,52 @@ function DesdeLaRaiz() {
       {/* CTA */}
       {/* INVERSIÓN */}
       <section className="py-24 px-6 bg-beige/30 border-t border-earth/5">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="eyebrow text-sage">Inversión</span>
-            <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4 text-balance">
-              Un proceso pensado para <span className="italic">transformar</span>.
-            </h2>
-            <p className="text-earth/70 text-pretty">
-              Más que sesiones sueltas: un camino sostenido donde cada
-              encuentro construye sobre el anterior y los cambios se anclan.
-            </p>
+        {!data ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="size-8 text-sage animate-spin opacity-50" />
           </div>
+        ) : (
+          <div className="max-w-screen-xl mx-auto animate-fade">
+            <div className="text-center max-w-2xl mx-auto mb-14">
+              <span className="eyebrow text-sage">Inversión</span>
+              <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4 text-balance">
+                {data.title.includes('*') ? data.title.split('*').map((part, i) => i % 2 === 1 ? <span key={i} className="italic">{part}</span> : part) : data.title}
+              </h2>
+              <p className="text-earth/70 text-pretty whitespace-pre-wrap">
+                {data.description}
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-5 gap-8 max-w-5xl mx-auto">
-            <ul className="md:col-span-3 space-y-3">
-              {incluye.map((i) => (
-                <li key={i} className="flex gap-3 items-start bg-cream ring-1 ring-earth/5 rounded-2xl px-5 py-4">
-                  <Check className="size-4 text-sage shrink-0 mt-1" />
-                  <span className="text-sm text-earth/80">{i}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="grid md:grid-cols-5 gap-8 max-w-5xl mx-auto">
+              <ul className="md:col-span-3 space-y-3">
+                {incluye.map((i) => (
+                  <li key={i} className="flex gap-3 items-start bg-cream ring-1 ring-earth/5 rounded-2xl px-5 py-4">
+                    <Check className="size-4 text-sage shrink-0 mt-1" />
+                    <span className="text-sm text-earth/80">{i}</span>
+                  </li>
+                ))}
+              </ul>
 
-            <aside className="md:col-span-2 bg-earth text-sand rounded-3xl p-8 flex flex-col">
-              <span className="eyebrow text-rose mb-4">Programa Desde la Raíz</span>
-              <div className="flex flex-wrap gap-4 text-xs text-sand/60 mb-6">
-                <span className="inline-flex items-center gap-1.5"><Calendar className="size-3.5" /> 4 encuentros</span>
-                <span className="inline-flex items-center gap-1.5"><Clock className="size-3.5" /> 120 min</span>
-                <span className="inline-flex items-center gap-1.5"><Sparkles className="size-3.5" /> 2 meses</span>
-              </div>
-              <PriceReveal price="$320.000" note="consultá por la opción de abonar en 2 cuotas sin recargo." />
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-auto inline-flex items-center justify-center gap-2 bg-sand text-earth px-6 py-3.5 rounded-full text-sm font-medium hover:bg-rose hover:text-earth transition-colors"
-              >
-                Quiero esta inversión <ArrowRight className="size-4" />
-              </a>
-            </aside>
+              <aside className="md:col-span-2 bg-earth text-sand rounded-3xl p-8 flex flex-col">
+                <span className="eyebrow text-rose mb-4">Programa Desde la Raíz</span>
+                <div className="flex flex-wrap gap-4 text-xs text-sand/60 mb-6">
+                  {data.features.map(f => (
+                    <span key={f.id} className="inline-flex items-center gap-1.5">{renderIcon(f.icon, "size-3.5")} {f.text}</span>
+                  ))}
+                </div>
+                <PriceReveal price={data.price} note={data.note} />
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-auto inline-flex items-center justify-center gap-2 bg-sand text-earth px-6 py-3.5 rounded-full text-sm font-medium hover:bg-rose hover:text-earth transition-colors"
+                >
+                  Quiero esta inversión <ArrowRight className="size-4" />
+                </a>
+              </aside>
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* TESTIMONIOS */}

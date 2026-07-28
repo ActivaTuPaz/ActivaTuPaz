@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Calendar, Check, Clock, Eye, Heart, Sparkles, Sun } from "lucide-react";
-import { useState } from "react";
+import { ArrowRight, Calendar, Check, Clock, Eye, Heart, Sparkles, Sun, Leaf, Loader2 } from "lucide-react";
+import { useState, useEffect } from "react";
 import mujerRenace from "@/assets/mujer-renace.jpg";
 import { WHATSAPP_URL } from "@/lib/contact";
+import { getProgramsData, ProgramsData } from "@/lib/admin-data";
 
 export const Route = createFileRoute("/mujer-re-nace")({
   head: () => ({
@@ -36,6 +37,25 @@ const incluye = [
 ];
 
 function MujerRenace() {
+  const [programsData, setProgramsData] = useState<ProgramsData | null>(null);
+
+  useEffect(() => {
+    getProgramsData().then(setProgramsData);
+  }, []);
+
+  const data = programsData?.mujerReNace;
+
+  const renderIcon = (name: string, className: string) => {
+    switch (name) {
+      case "clock": return <Clock className={className} />;
+      case "sparkles": return <Sparkles className={className} />;
+      case "leaf": return <Leaf className={className} />;
+      case "heart": return <Heart className={className} />;
+      case "calendar":
+      default: return <Calendar className={className} />;
+    }
+  };
+
   return (
     <div className="bg-sand">
       {/* HERO */}
@@ -137,50 +157,55 @@ function MujerRenace() {
       {/* CTA */}
       {/* INVERSIÓN */}
       <section className="py-24 px-6 bg-rose/10 border-t border-earth/5">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="eyebrow text-rose">Inversión</span>
-            <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4 text-balance">
-              Una experiencia de <span className="italic">alto valor</span> para tu vida.
-            </h2>
-            <p className="text-earth/70 text-pretty">
-              No es un curso más. Es un proceso íntimo, ritualizado y
-              sostenido para que vuelvas a vos con todo lo que sos.
-            </p>
+        {!data ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="size-8 text-rose animate-spin opacity-50" />
           </div>
+        ) : (
+          <div className="max-w-screen-xl mx-auto animate-fade">
+            <div className="text-center max-w-2xl mx-auto mb-14">
+              <span className="eyebrow text-rose">Inversión</span>
+              <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4 text-balance">
+                {data.title.includes('*') ? data.title.split('*').map((part, i) => i % 2 === 1 ? <span key={i} className="italic">{part}</span> : part) : data.title}
+              </h2>
+              <p className="text-earth/70 text-pretty whitespace-pre-wrap">
+                {data.description}
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-5 gap-8 max-w-5xl mx-auto">
-            <ul className="md:col-span-3 space-y-3">
-              {incluye.map((i) => (
-                <li key={i} className="flex gap-3 items-start bg-cream ring-1 ring-earth/5 rounded-2xl px-5 py-4">
-                  <Check className="size-4 text-rose shrink-0 mt-1" />
-                  <span className="text-sm text-earth/80">{i}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="grid md:grid-cols-5 gap-8 max-w-5xl mx-auto">
+              <ul className="md:col-span-3 space-y-3">
+                {incluye.map((i) => (
+                  <li key={i} className="flex gap-3 items-start bg-cream ring-1 ring-earth/5 rounded-2xl px-5 py-4">
+                    <Check className="size-4 text-rose shrink-0 mt-1" />
+                    <span className="text-sm text-earth/80">{i}</span>
+                  </li>
+                ))}
+              </ul>
 
-            <aside className="md:col-span-2 bg-earth text-sand rounded-3xl p-8 flex flex-col relative overflow-hidden">
-              <span className="absolute -top-12 -right-12 size-40 rounded-full bg-rose/30 blur-3xl" aria-hidden="true" />
-              <span className="eyebrow text-rose mb-4 relative">Programa Mujer Re-Nace</span>
-              <div className="flex flex-wrap gap-4 text-xs text-sand/60 mb-6 relative">
-                <span className="inline-flex items-center gap-1.5"><Calendar className="size-3.5" /> 12 encuentros</span>
-                <span className="inline-flex items-center gap-1.5"><Clock className="size-3.5" /> 60 min</span>
-                <span className="inline-flex items-center gap-1.5"><Sparkles className="size-3.5" /> Semanales</span>
-              </div>
-              <div className="relative">
-                <PriceReveal price="$666.000" note="consultá por la opción de abonar en 2 veces." />
-              </div>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-auto inline-flex items-center justify-center gap-2 bg-sand text-earth px-6 py-3.5 rounded-full text-sm font-medium hover:bg-rose hover:text-earth transition-colors relative"
-              >
-                Quiero re-nacer <ArrowRight className="size-4" />
-              </a>
-            </aside>
+              <aside className="md:col-span-2 bg-earth text-sand rounded-3xl p-8 flex flex-col relative overflow-hidden">
+                <span className="absolute -top-12 -right-12 size-40 rounded-full bg-rose/30 blur-3xl" aria-hidden="true" />
+                <span className="eyebrow text-rose mb-4 relative">Programa Mujer Re-Nace</span>
+                <div className="flex flex-wrap gap-4 text-xs text-sand/60 mb-6 relative">
+                  {data.features.map(f => (
+                    <span key={f.id} className="inline-flex items-center gap-1.5">{renderIcon(f.icon, "size-3.5")} {f.text}</span>
+                  ))}
+                </div>
+                <div className="relative">
+                  <PriceReveal price={data.price} note={data.note} />
+                </div>
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-auto inline-flex items-center justify-center gap-2 bg-sand text-earth px-6 py-3.5 rounded-full text-sm font-medium hover:bg-rose hover:text-earth transition-colors relative"
+                >
+                  Quiero re-nacer <ArrowRight className="size-4" />
+                </a>
+              </aside>
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       {/* TESTIMONIO */}

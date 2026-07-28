@@ -20,7 +20,9 @@ import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminProtectedRouteImport } from './routes/admin/_protected'
 import { Route as AdminProtectedIndexRouteImport } from './routes/admin/_protected/index'
 import { Route as AdminProtectedSesionesRouteImport } from './routes/admin/_protected/sesiones'
+import { Route as AdminProtectedProgramasRouteImport } from './routes/admin/_protected/programas'
 import { Route as AdminProtectedMetodologiaRouteImport } from './routes/admin/_protected/metodologia'
+import { Route as AdminProtectedEntrevistasRouteImport } from './routes/admin/_protected/entrevistas'
 
 const SobreMiRoute = SobreMiRouteImport.update({
   id: '/sobre-mi',
@@ -77,10 +79,21 @@ const AdminProtectedSesionesRoute = AdminProtectedSesionesRouteImport.update({
   path: '/sesiones',
   getParentRoute: () => AdminProtectedRoute,
 } as any)
+const AdminProtectedProgramasRoute = AdminProtectedProgramasRouteImport.update({
+  id: '/programas',
+  path: '/programas',
+  getParentRoute: () => AdminProtectedRoute,
+} as any)
 const AdminProtectedMetodologiaRoute =
   AdminProtectedMetodologiaRouteImport.update({
     id: '/metodologia',
     path: '/metodologia',
+    getParentRoute: () => AdminProtectedRoute,
+  } as any)
+const AdminProtectedEntrevistasRoute =
+  AdminProtectedEntrevistasRouteImport.update({
+    id: '/entrevistas',
+    path: '/entrevistas',
     getParentRoute: () => AdminProtectedRoute,
   } as any)
 
@@ -94,7 +107,9 @@ export interface FileRoutesByFullPath {
   '/sobre-mi': typeof SobreMiRoute
   '/admin': typeof AdminProtectedRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
+  '/admin/entrevistas': typeof AdminProtectedEntrevistasRoute
   '/admin/metodologia': typeof AdminProtectedMetodologiaRoute
+  '/admin/programas': typeof AdminProtectedProgramasRoute
   '/admin/sesiones': typeof AdminProtectedSesionesRoute
   '/admin/': typeof AdminProtectedIndexRoute
 }
@@ -107,7 +122,9 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/admin/login': typeof AdminLoginRoute
+  '/admin/entrevistas': typeof AdminProtectedEntrevistasRoute
   '/admin/metodologia': typeof AdminProtectedMetodologiaRoute
+  '/admin/programas': typeof AdminProtectedProgramasRoute
   '/admin/sesiones': typeof AdminProtectedSesionesRoute
   '/admin': typeof AdminProtectedIndexRoute
 }
@@ -122,7 +139,9 @@ export interface FileRoutesById {
   '/sobre-mi': typeof SobreMiRoute
   '/admin/_protected': typeof AdminProtectedRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
+  '/admin/_protected/entrevistas': typeof AdminProtectedEntrevistasRoute
   '/admin/_protected/metodologia': typeof AdminProtectedMetodologiaRoute
+  '/admin/_protected/programas': typeof AdminProtectedProgramasRoute
   '/admin/_protected/sesiones': typeof AdminProtectedSesionesRoute
   '/admin/_protected/': typeof AdminProtectedIndexRoute
 }
@@ -138,7 +157,9 @@ export interface FileRouteTypes {
     | '/sobre-mi'
     | '/admin'
     | '/admin/login'
+    | '/admin/entrevistas'
     | '/admin/metodologia'
+    | '/admin/programas'
     | '/admin/sesiones'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -151,7 +172,9 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sobre-mi'
     | '/admin/login'
+    | '/admin/entrevistas'
     | '/admin/metodologia'
+    | '/admin/programas'
     | '/admin/sesiones'
     | '/admin'
   id:
@@ -165,7 +188,9 @@ export interface FileRouteTypes {
     | '/sobre-mi'
     | '/admin/_protected'
     | '/admin/login'
+    | '/admin/_protected/entrevistas'
     | '/admin/_protected/metodologia'
+    | '/admin/_protected/programas'
     | '/admin/_protected/sesiones'
     | '/admin/_protected/'
   fileRoutesById: FileRoutesById
@@ -261,6 +286,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProtectedSesionesRouteImport
       parentRoute: typeof AdminProtectedRoute
     }
+    '/admin/_protected/programas': {
+      id: '/admin/_protected/programas'
+      path: '/programas'
+      fullPath: '/admin/programas'
+      preLoaderRoute: typeof AdminProtectedProgramasRouteImport
+      parentRoute: typeof AdminProtectedRoute
+    }
     '/admin/_protected/metodologia': {
       id: '/admin/_protected/metodologia'
       path: '/metodologia'
@@ -268,17 +300,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProtectedMetodologiaRouteImport
       parentRoute: typeof AdminProtectedRoute
     }
+    '/admin/_protected/entrevistas': {
+      id: '/admin/_protected/entrevistas'
+      path: '/entrevistas'
+      fullPath: '/admin/entrevistas'
+      preLoaderRoute: typeof AdminProtectedEntrevistasRouteImport
+      parentRoute: typeof AdminProtectedRoute
+    }
   }
 }
 
 interface AdminProtectedRouteChildren {
+  AdminProtectedEntrevistasRoute: typeof AdminProtectedEntrevistasRoute
   AdminProtectedMetodologiaRoute: typeof AdminProtectedMetodologiaRoute
+  AdminProtectedProgramasRoute: typeof AdminProtectedProgramasRoute
   AdminProtectedSesionesRoute: typeof AdminProtectedSesionesRoute
   AdminProtectedIndexRoute: typeof AdminProtectedIndexRoute
 }
 
 const AdminProtectedRouteChildren: AdminProtectedRouteChildren = {
+  AdminProtectedEntrevistasRoute: AdminProtectedEntrevistasRoute,
   AdminProtectedMetodologiaRoute: AdminProtectedMetodologiaRoute,
+  AdminProtectedProgramasRoute: AdminProtectedProgramasRoute,
   AdminProtectedSesionesRoute: AdminProtectedSesionesRoute,
   AdminProtectedIndexRoute: AdminProtectedIndexRoute,
 }

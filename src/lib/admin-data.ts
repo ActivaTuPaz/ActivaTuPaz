@@ -282,3 +282,71 @@ export async function getEntrevistas(): Promise<EntrevistaData[]> {
     return [];
   }
 }
+
+// --- Programs Section ---
+
+export type ProgramFeature = {
+  id: string;
+  icon: string;
+  text: string;
+};
+
+export type ProgramData = {
+  title: string;
+  description: string;
+  features: ProgramFeature[];
+  price: string;
+  note: string;
+};
+
+export type ProgramsData = {
+  desdeLaRaiz: ProgramData;
+  mujerReNace: ProgramData;
+};
+
+export const defaultProgramsData: ProgramsData = {
+  desdeLaRaiz: {
+    title: "Un proceso pensado para transformar.",
+    description: "Más que sesiones sueltas: un camino sostenido donde cada encuentro construye sobre el anterior y los cambios se anclan.",
+    features: [
+      { id: "1", icon: "calendar", text: "4 encuentros" },
+      { id: "2", icon: "clock", text: "120 min" },
+      { id: "3", icon: "sparkles", text: "2 meses" }
+    ],
+    price: "$320.000",
+    note: "consultá por la opción de abonar en 2 cuotas sin recargo."
+  },
+  mujerReNace: {
+    title: "Una experiencia de alto valor para tu vida.",
+    description: "No es un curso más. Es un proceso íntimo, ritualizado y sostenido para que vuelvas a vos con todo lo que sos.",
+    features: [
+      { id: "1", icon: "calendar", text: "12 encuentros" },
+      { id: "2", icon: "clock", text: "60 min" },
+      { id: "3", icon: "sparkles", text: "Semanales" }
+    ],
+    price: "$666.000",
+    note: "consultá por la opción de abonar en 2 veces."
+  }
+};
+
+export async function getProgramsData(): Promise<ProgramsData> {
+  try {
+    const docRef = doc(db, "content", "programs");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data() as ProgramsData;
+    }
+  } catch (error) {
+    console.error("Error fetching programs data", error);
+  }
+  return defaultProgramsData;
+}
+
+export async function saveProgramsData(data: ProgramsData): Promise<void> {
+  try {
+    await setDoc(doc(db, "content", "programs"), data);
+  } catch (error) {
+    console.error("Error saving programs data", error);
+    throw error;
+  }
+}

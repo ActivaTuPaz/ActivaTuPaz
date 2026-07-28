@@ -59,6 +59,13 @@ function AdminLayout() {
             <Inbox className="size-4" />
             Entrevistas
           </Link>
+          <Link
+            to="/admin/programas"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-earth/5 transition-colors [&.active]:bg-sage/15 [&.active]:text-sage"
+          >
+            <FileText className="size-4" />
+            Programas
+          </Link>
         </nav>
         <div className="p-4 border-t border-earth/10">
           <button
