@@ -357,7 +357,13 @@ export async function getProgramsData(): Promise<ProgramsData> {
     const docRef = doc(db, "content", "programs");
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      return docSnap.data() as ProgramsData;
+      // Fusionamos los datos por defecto con los que vienen de Firebase
+      // Esto asegura que si agregamos nuevos programas al código, 
+      // no explote la app si Firebase aún tiene el documento viejo.
+      return {
+        ...defaultProgramsData,
+        ...docSnap.data()
+      } as ProgramsData;
     }
   } catch (error) {
     console.error("Error fetching programs data", error);
