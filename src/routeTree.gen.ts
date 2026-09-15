@@ -12,8 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreMiRouteImport } from './routes/sobre-mi'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as MujerReNaceRouteImport } from './routes/mujer-re-nace'
+import { Route as MentoriaMaestrasRouteImport } from './routes/mentoria-maestras'
 import { Route as EntrevistaPreviaRouteImport } from './routes/entrevista-previa'
 import { Route as DesdeLaRaizRouteImport } from './routes/desde-la-raiz'
+import { Route as DarYRecibirRouteImport } from './routes/dar-y-recibir'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
@@ -39,6 +41,11 @@ const MujerReNaceRoute = MujerReNaceRouteImport.update({
   path: '/mujer-re-nace',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MentoriaMaestrasRoute = MentoriaMaestrasRouteImport.update({
+  id: '/mentoria-maestras',
+  path: '/mentoria-maestras',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EntrevistaPreviaRoute = EntrevistaPreviaRouteImport.update({
   id: '/entrevista-previa',
   path: '/entrevista-previa',
@@ -47,6 +54,11 @@ const EntrevistaPreviaRoute = EntrevistaPreviaRouteImport.update({
 const DesdeLaRaizRoute = DesdeLaRaizRouteImport.update({
   id: '/desde-la-raiz',
   path: '/desde-la-raiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DarYRecibirRoute = DarYRecibirRouteImport.update({
+  id: '/dar-y-recibir',
+  path: '/dar-y-recibir',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactoRoute = ContactoRouteImport.update({
@@ -100,8 +112,10 @@ const AdminProtectedEntrevistasRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contacto': typeof ContactoRoute
+  '/dar-y-recibir': typeof DarYRecibirRoute
   '/desde-la-raiz': typeof DesdeLaRaizRoute
   '/entrevista-previa': typeof EntrevistaPreviaRoute
+  '/mentoria-maestras': typeof MentoriaMaestrasRoute
   '/mujer-re-nace': typeof MujerReNaceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
@@ -116,8 +130,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contacto': typeof ContactoRoute
+  '/dar-y-recibir': typeof DarYRecibirRoute
   '/desde-la-raiz': typeof DesdeLaRaizRoute
   '/entrevista-previa': typeof EntrevistaPreviaRoute
+  '/mentoria-maestras': typeof MentoriaMaestrasRoute
   '/mujer-re-nace': typeof MujerReNaceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
@@ -132,8 +148,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contacto': typeof ContactoRoute
+  '/dar-y-recibir': typeof DarYRecibirRoute
   '/desde-la-raiz': typeof DesdeLaRaizRoute
   '/entrevista-previa': typeof EntrevistaPreviaRoute
+  '/mentoria-maestras': typeof MentoriaMaestrasRoute
   '/mujer-re-nace': typeof MujerReNaceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
@@ -150,8 +168,10 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contacto'
+    | '/dar-y-recibir'
     | '/desde-la-raiz'
     | '/entrevista-previa'
+    | '/mentoria-maestras'
     | '/mujer-re-nace'
     | '/sitemap.xml'
     | '/sobre-mi'
@@ -166,8 +186,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contacto'
+    | '/dar-y-recibir'
     | '/desde-la-raiz'
     | '/entrevista-previa'
+    | '/mentoria-maestras'
     | '/mujer-re-nace'
     | '/sitemap.xml'
     | '/sobre-mi'
@@ -181,8 +203,10 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/contacto'
+    | '/dar-y-recibir'
     | '/desde-la-raiz'
     | '/entrevista-previa'
+    | '/mentoria-maestras'
     | '/mujer-re-nace'
     | '/sitemap.xml'
     | '/sobre-mi'
@@ -198,8 +222,10 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContactoRoute: typeof ContactoRoute
+  DarYRecibirRoute: typeof DarYRecibirRoute
   DesdeLaRaizRoute: typeof DesdeLaRaizRoute
   EntrevistaPreviaRoute: typeof EntrevistaPreviaRoute
+  MentoriaMaestrasRoute: typeof MentoriaMaestrasRoute
   MujerReNaceRoute: typeof MujerReNaceRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreMiRoute: typeof SobreMiRoute
@@ -230,6 +256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MujerReNaceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mentoria-maestras': {
+      id: '/mentoria-maestras'
+      path: '/mentoria-maestras'
+      fullPath: '/mentoria-maestras'
+      preLoaderRoute: typeof MentoriaMaestrasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/entrevista-previa': {
       id: '/entrevista-previa'
       path: '/entrevista-previa'
@@ -242,6 +275,13 @@ declare module '@tanstack/react-router' {
       path: '/desde-la-raiz'
       fullPath: '/desde-la-raiz'
       preLoaderRoute: typeof DesdeLaRaizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dar-y-recibir': {
+      id: '/dar-y-recibir'
+      path: '/dar-y-recibir'
+      fullPath: '/dar-y-recibir'
+      preLoaderRoute: typeof DarYRecibirRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacto': {
@@ -333,8 +373,10 @@ const AdminProtectedRouteWithChildren = AdminProtectedRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContactoRoute: ContactoRoute,
+  DarYRecibirRoute: DarYRecibirRoute,
   DesdeLaRaizRoute: DesdeLaRaizRoute,
   EntrevistaPreviaRoute: EntrevistaPreviaRoute,
+  MentoriaMaestrasRoute: MentoriaMaestrasRoute,
   MujerReNaceRoute: MujerReNaceRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreMiRoute: SobreMiRoute,

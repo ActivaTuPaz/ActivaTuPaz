@@ -302,6 +302,8 @@ export type ProgramData = {
 export type ProgramsData = {
   desdeLaRaiz: ProgramData;
   mujerReNace: ProgramData;
+  darYRecibir: ProgramData;
+  mentoriaMaestras: ProgramData;
 };
 
 export const defaultProgramsData: ProgramsData = {
@@ -326,6 +328,27 @@ export const defaultProgramsData: ProgramsData = {
     ],
     price: "$666.000",
     note: "consultá por la opción de abonar en 2 veces."
+  },
+  darYRecibir: {
+    title: "Un espacio íntimo para *soltar la deuda*.",
+    description: "4 encuentros individuales de 60 minutos para ir al origen de la creencia y construir una nueva manera de dar y recibir.",
+    features: [
+      { id: "1", icon: "calendar", text: "4 encuentros" },
+      { id: "2", icon: "clock", text: "60 minutos" }
+    ],
+    price: "$333.000",
+    note: "Inversión total del programa. Escribime por WhatsApp para coordinar la forma de pago que te resulte más cómoda."
+  },
+  mentoriaMaestras: {
+    title: "Tu método. Tu mirada. Tu manera de *acompañar*.",
+    description: "No vas a recibir un protocolo para copiar. Vas a construir tu propio mapa para acompañar.",
+    features: [
+      { id: "1", icon: "calendar", text: "6 encuentros" },
+      { id: "2", icon: "clock", text: "60 min" },
+      { id: "3", icon: "sparkles", text: "Online o presencial" }
+    ],
+    price: "$399.000",
+    note: "1 pago o 2 pagos de $225.000."
   }
 };
 

@@ -175,6 +175,8 @@ function AdminProgramsPage() {
       <div className="grid lg:grid-cols-2 gap-8">
         {renderProgramEditor("desdeLaRaiz", "Desde la Raíz")}
         {renderProgramEditor("mujerReNace", "Mujer Re-Nace")}
+        {renderProgramEditor("darYRecibir", "Dar y Recibir")}
+        {renderProgramEditor("mentoriaMaestras", "Mentoría Maestras")}
       </div>
     </div>
   );

@@ -23,6 +23,8 @@ export function SiteFooter() {
               <li><Link to="/" className="hover:text-rose transition-colors">Inicio</Link></li>
               <li><Link to="/desde-la-raiz" className="hover:text-rose transition-colors">Desde la Raíz</Link></li>
               <li><Link to="/mujer-re-nace" className="hover:text-rose transition-colors">Mujer Re-Nace</Link></li>
+              <li><Link to="/mentoria-maestras" className="hover:text-rose transition-colors">Mentoría para Maestras</Link></li>
+              <li><Link to="/dar-y-recibir" className="hover:text-rose transition-colors">Dar y Recibir</Link></li>
               <li><Link to="/sobre-mi" className="hover:text-rose transition-colors">Sobre mí</Link></li>
               <li><Link to="/contacto" className="hover:text-rose transition-colors">Contacto</Link></li>
             </ul>
