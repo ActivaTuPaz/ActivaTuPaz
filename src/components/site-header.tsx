@@ -3,19 +3,16 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X, MessageCircle, ChevronDown } from "lucide-react";
 import { WHATSAPP_URL } from "@/lib/contact";
 
-const mainLinks = [
-  { to: "/", label: "Inicio" },
-  { to: "/sobre-mi", label: "Sobre mí" },
-  { to: "/", hash: "recursos", label: "Recursos" },
-  { to: "/entrevista-previa", label: "Entrevista" },
-  { to: "/contacto", label: "Contacto" },
-];
-
 const programLinks = [
   { to: "/desde-la-raiz", label: "Desde la Raíz" },
   { to: "/mujer-re-nace", label: "Mujer Re-Nace" },
   { to: "/mentoria-maestras", label: "Mentoría para Maestras" },
   { to: "/dar-y-recibir", label: "Dar y Recibir" },
+];
+
+const utilityLinks = [
+  { to: "/entrevista-previa", label: "Entrevista" },
+  { to: "/", hash: "recursos", label: "Recursos" },
 ];
 
 export function SiteHeader() {
@@ -44,16 +41,26 @@ export function SiteHeader() {
         <nav className="hidden xl:flex flex-none justify-center gap-8 text-[11px] uppercase tracking-[0.15em] text-earth/60 font-medium items-center">
           
           <Link
-            to={mainLinks[0].to}
+            to="/"
             activeProps={{ className: "text-earth" }}
             className="hover:text-rose transition-colors duration-300"
           >
-            {mainLinks[0].label}
+            Inicio
+          </Link>
+
+          <Link
+            to="/"
+            hash="sesiones"
+            activeProps={{ className: "text-earth" }}
+            activeOptions={{ exact: true, includeHash: true }}
+            className="hover:text-rose transition-colors duration-300"
+          >
+            Sesiones 1 a 1
           </Link>
 
           {/* Dropdown Programas */}
           <div className="relative group py-4 -my-4">
-            <button className="flex items-center gap-1 hover:text-rose transition-colors duration-300 uppercase">
+            <button className="flex items-center gap-1 group-hover:text-rose transition-colors duration-300 uppercase">
               Programas <ChevronDown className="size-3 group-hover:rotate-180 transition-transform duration-300" />
             </button>
             <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
@@ -62,8 +69,8 @@ export function SiteHeader() {
                   <Link
                     key={p.label}
                     to={p.to}
-                    activeProps={{ className: "bg-earth/5 text-earth" }}
-                    className="px-4 py-3 rounded-xl hover:bg-earth/5 hover:text-rose transition-colors text-[10px] uppercase tracking-[0.15em] whitespace-nowrap text-left"
+                    activeProps={{ className: "text-rose font-semibold" }}
+                    className="px-4 py-2.5 hover:text-rose transition-colors text-[10px] uppercase tracking-[0.15em] whitespace-nowrap text-left text-earth/70"
                   >
                     {p.label}
                   </Link>
@@ -72,17 +79,44 @@ export function SiteHeader() {
             </div>
           </div>
 
-          {mainLinks.slice(1).map((l) => (
-            <Link
-              key={l.label}
-              to={l.to}
-              hash={l.hash}
-              activeProps={{ className: "text-earth" }}
-              className="hover:text-rose transition-colors duration-300"
-            >
-              {l.label}
-            </Link>
-          ))}
+          {/* Dropdown Utilidades */}
+          <div className="relative group py-4 -my-4">
+            <button className="flex items-center gap-1 group-hover:text-rose transition-colors duration-300 uppercase">
+              Utilidades <ChevronDown className="size-3 group-hover:rotate-180 transition-transform duration-300" />
+            </button>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+              <div className="bg-sand/95 backdrop-blur-xl border border-earth/10 rounded-2xl p-2 flex flex-col min-w-[180px] shadow-soft">
+                {utilityLinks.map(u => (
+                  <Link
+                    key={u.label}
+                    to={u.to}
+                    hash={u.hash}
+                    activeProps={{ className: "text-rose font-semibold" }}
+                    activeOptions={{ exact: true, includeHash: !!u.hash }}
+                    className="px-4 py-2.5 hover:text-rose transition-colors text-[10px] uppercase tracking-[0.15em] whitespace-nowrap text-left text-earth/70"
+                  >
+                    {u.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <Link
+            to="/sobre-mi"
+            activeProps={{ className: "text-earth" }}
+            className="hover:text-rose transition-colors duration-300"
+          >
+            Sobre Mí
+          </Link>
+
+          <Link
+            to="/contacto"
+            activeProps={{ className: "text-earth" }}
+            className="hover:text-rose transition-colors duration-300"
+          >
+            Contacto
+          </Link>
         </nav>
 
         {/* Lado Derecho: Botón Reservar y Menú Móvil */}
@@ -93,7 +127,7 @@ export function SiteHeader() {
             rel="noreferrer"
             className="hidden sm:inline-flex items-center gap-2 bg-earth text-sand px-6 py-2.5 rounded-full text-xs font-medium tracking-wide hover:bg-earth/90 transition-colors whitespace-nowrap shrink-0"
           >
-            <MessageCircle className="size-3.5" /> Reservar
+            <MessageCircle className="size-3.5" /> Agendar Consulta
           </a>
 
           <button
@@ -112,11 +146,23 @@ export function SiteHeader() {
           <ul className="flex flex-col px-6 py-8 gap-4">
             <li>
               <Link
-                to={mainLinks[0].to}
+                to="/"
                 activeProps={{ className: "text-earth" }}
                 className="block font-serif text-2xl text-earth/80 hover:text-rose transition-colors"
               >
-                {mainLinks[0].label}
+                Inicio
+              </Link>
+            </li>
+
+            <li className="pt-4 border-t border-earth/5">
+              <Link
+                to="/"
+                hash="sesiones"
+                activeProps={{ className: "text-earth" }}
+                activeOptions={{ exact: true, includeHash: true }}
+                className="block font-serif text-2xl text-earth/80 hover:text-rose transition-colors"
+              >
+                Sesiones 1 a 1
               </Link>
             </li>
             
@@ -137,18 +183,39 @@ export function SiteHeader() {
               </ul>
             </li>
 
+            <li className="pt-4 border-t border-earth/5">
+              <span className="block font-serif text-2xl text-earth/80 mb-4">Utilidades</span>
+              <ul className="flex flex-col gap-4 pl-4 border-l-2 border-earth/10">
+                {utilityLinks.map((u) => (
+                  <li key={u.label}>
+                    <Link
+                      to={u.to}
+                      hash={u.hash}
+                      activeProps={{ className: "text-earth font-semibold" }}
+                      className="block text-sm text-earth/70 hover:text-rose transition-colors uppercase tracking-widest"
+                    >
+                      {u.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+
             <li className="pt-4 border-t border-earth/5 flex flex-col gap-4">
-              {mainLinks.slice(1).map((l) => (
-                <Link
-                  key={l.label}
-                  to={l.to}
-                  hash={l.hash}
-                  activeProps={{ className: "text-earth" }}
-                  className="block font-serif text-2xl text-earth/80 hover:text-rose transition-colors"
-                >
-                  {l.label}
-                </Link>
-              ))}
+              <Link
+                to="/sobre-mi"
+                activeProps={{ className: "text-earth" }}
+                className="block font-serif text-2xl text-earth/80 hover:text-rose transition-colors"
+              >
+                Sobre Mí
+              </Link>
+              <Link
+                to="/contacto"
+                activeProps={{ className: "text-earth" }}
+                className="block font-serif text-2xl text-earth/80 hover:text-rose transition-colors"
+              >
+                Contacto
+              </Link>
             </li>
           </ul>
         </nav>

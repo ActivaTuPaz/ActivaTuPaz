@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Clock, Compass, Download, FileText, Headphones, Heart, Instagram, Leaf, MessageCircle, Sparkles, Sun, TreeDeciduous, Zap } from "lucide-react";
+import { ArrowRight, Check, CheckCircle2, Clock, Compass, Download, FileText, Headphones, Heart, Instagram, Leaf, MessageCircle, Sparkles, Sun, TreeDeciduous, Zap } from "lucide-react";
 import lorenaReal from "@/assets/lorena-real.jpg";
 import todoEsDivino from "@/assets/todo-es-divino.jpg";
 import handsCup from "@/assets/hands-cup.jpg";
@@ -10,8 +10,17 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useRef, useState } from "react";
 import { getHeroData, defaultHeroData, HeroData, getMethodologyData, defaultMethodologyData, MethodologyData, getSessionsData, defaultSessionsData, SessionsData } from "@/lib/admin-data";
+import { MagicBackground } from "@/components/ui/magic-background";
 
 export const Route = createFileRoute("/")({
+  loader: async () => {
+    const [heroData, methodologyData, sessionsData] = await Promise.all([
+      getHeroData(),
+      getMethodologyData(),
+      getSessionsData()
+    ]);
+    return { heroData, methodologyData, sessionsData };
+  },
   head: () => ({
     meta: [
       { title: "Lorena Calcopietro | Biodecodificación Emocional" },
@@ -122,6 +131,7 @@ const beneficios = [
 
 const testimonios = [
   {
+    title: "\"Trató mis heridas con tanto respeto\"",
     quote:
       "Gracias Lore por tu entrega, por tu amor, por tu generosidad. Gracias por tu empatía, por tratar mis heridas con tanto respeto, por llenarlas de luz, de conciencia. Gracias por abrazarme y sostenerme en este proceso, sin dudas no fuiste una elección casual. Te honro y deseo que todo lo que das se multiplique en tu vida.",
     name: "Daiana",
@@ -130,6 +140,7 @@ const testimonios = [
     palette: "rose",
   },
   {
+    title: "\"Cada encuentro fue un antes y un después\"",
     quote:
       "Vengo haciendo un trabajo interno y las sesiones con Lore son realmente mágicas para mí. Hicimos registros, biodecodificación y constelaciones familiares, y cada encuentro fue un antes y un después. Lore acompaña con una sensibilidad y una amorosidad enormes. Súper agradecida por el proceso y por ella.",
     name: "Daiana",
@@ -138,6 +149,7 @@ const testimonios = [
     palette: "sage",
   },
   {
+    title: "\"Cambió mi energía y la de mi familia\"",
     quote:
       "Llegué a Lore con un dolor físico en la pierna derecha, de hacía meses, por un estiramiento muy profundo que hice, enojada y sumado a mi cambio radical de vida, de ser empleada con horario y sueldo fijo, a ser emprendedora y mamá full time. Lore me dijo: vamos a buscar la emoción detrás de ese dolor. Y así fue como, encuentro tras encuentro, fueron apareciendo emociones reprimidas y heridas del pasado, que inevitablemente tuve que volver a abrir para poder comenzar a sanar \"ese dolor físico\" que solo se traducía en emociones no vistas, no aceptadas. Y luego de cada encuentro sentía mucho alivio, como si me quitara muchas mochilas de mi espalda. El dolor físico dejó de ocupar espacio en mi mente y comencé a ocuparme de las verdaderas emociones que salían de cada encuentro, el verdadero dolor. El proceso no sólo cambió mi energía, sino la de mi hijos, la de mi familia, mi entorno. Comencé a hacerme cargo de lo que realmente sentía y dejar de buscar responsables afuera, comencé a ocuparme de mi y darme mis tiempos, mis momentos, a mirarme y reconocerme, valorarme, y tanto mas. Este proceso me ayudó a ver desde otra perspectiva el dolor.",
     name: "Virginia",
@@ -183,15 +195,7 @@ const recursos = [
 ];
 
 function Index() {
-  const [heroData, setHeroData] = useState<HeroData>(defaultHeroData);
-  const [methodologyData, setMethodologyData] = useState<MethodologyData>(defaultMethodologyData);
-  const [sessionsData, setSessionsData] = useState<SessionsData>(defaultSessionsData);
-
-  useEffect(() => {
-    getHeroData().then(setHeroData);
-    getMethodologyData().then(setMethodologyData);
-    getSessionsData().then(setSessionsData);
-  }, []);
+  const { heroData, methodologyData, sessionsData } = Route.useLoaderData();
 
   const renderTitle = (title: string) => {
     // Allows wrapping text in *asterisks* to make it italic and bloom colored
@@ -211,7 +215,8 @@ function Index() {
             "radial-gradient(120% 80% at 10% 0%, color-mix(in oklab, var(--mint) 35%, transparent) 0%, transparent 55%), radial-gradient(100% 70% at 100% 20%, color-mix(in oklab, var(--peach) 40%, transparent) 0%, transparent 60%), radial-gradient(90% 60% at 50% 100%, color-mix(in oklab, var(--bloom) 30%, transparent) 0%, transparent 65%), var(--sand)",
         }}
       >
-        <div className="max-w-screen-xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <MagicBackground />
+        <div className="max-w-screen-xl mx-auto grid md:grid-cols-2 gap-12 items-center relative z-10">
           <div className="order-2 md:order-1">
             <span className="eyebrow text-sage mb-6 inline-block animate-fade">
               Biodecodificación · Constelaciones · Registros
@@ -229,14 +234,14 @@ function Index() {
                 rel="noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-earth text-sand px-8 py-4 rounded-full text-sm font-medium tracking-wide hover:bg-earth/90 transition-all duration-500 active:scale-95 shadow-soft"
               >
-                <MessageCircle className="size-4" /> Reservar Sesión Exploradora
+                <MessageCircle className="size-4" /> Agendar Sesión 1 a 1
               </a>
-              <Link
-                to="/sobre-mi"
+              <a
+                href="#servicios"
                 className="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-medium tracking-wide border border-earth/15 hover:border-earth/40 transition-colors"
               >
-                Conocé mi historia
-              </Link>
+                Ver Programas y Acompañamientos
+              </a>
             </div>
             <a
               href="#recursos"
@@ -346,8 +351,123 @@ function Index() {
         </div>
       </section>
 
+      {/* NUEVA SECCIÓN SERVICIOS */}
+      <section id="servicios" className="py-24 px-6 bg-[#E8E2D9] border-t border-earth/5">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="eyebrow text-rose">Modalidades</span>
+            <h2 className="font-serif text-3xl md:text-5xl text-earth mt-4 mb-6">
+              ¿Cómo podemos {renderTitle("*trabajar*")} juntos?
+            </h2>
+            <p className="text-earth/70 text-lg text-balance">
+              Elegí la opción que mejor se adapte a vos. Desde un encuentro puntual para destrabar algo urgente, hasta procesos profundos de transformación de varias semanas.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-10">
+            {/* Tarjeta A: Sesión 1 a 1 */}
+            <div className="bg-sand rounded-[2rem] p-8 md:p-12 shadow-soft flex flex-col h-full border border-earth/10 relative overflow-hidden group hover:border-earth/20 transition-colors duration-500">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-48 h-48 bg-mint/20 rounded-full blur-3xl -mr-10 -mt-10 group-hover:bg-mint/30 transition-colors duration-500" />
+              <div className="absolute bottom-0 left-0 w-32 h-32 bg-peach/20 rounded-full blur-2xl -ml-10 -mb-10" />
+              
+              <div className="relative z-10 flex-1">
+                <span className="eyebrow text-sage mb-4 block">Encuentro único</span>
+                <h3 className="font-serif text-3xl md:text-4xl text-earth mb-4">Sesión Individual 1 a 1</h3>
+                <p className="text-earth/70 mb-8 text-pretty">
+                  Un espacio seguro para abordar temas específicos, destrabar emociones y encontrar claridad inmediata mediante la biodecodificación. Ideal si es tu primera vez o necesitas tratar un tema puntual.
+                </p>
+                
+                <ul className="space-y-5 mb-10">
+                  <li className="flex items-start gap-4">
+                    <div className="size-6 rounded-full bg-mint/20 flex items-center justify-center shrink-0 mt-0.5 text-sage">
+                      <CheckCircle2 className="size-4" />
+                    </div>
+                    <span className="text-earth/80 text-sm md:text-base">Decodificación del origen de un síntoma físico o patrón emocional.</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="size-6 rounded-full bg-mint/20 flex items-center justify-center shrink-0 mt-0.5 text-sage">
+                      <CheckCircle2 className="size-4" />
+                    </div>
+                    <span className="text-earth/80 text-sm md:text-base">Análisis de tu árbol genealógico (lealtades y programas invisibles).</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="size-6 rounded-full bg-mint/20 flex items-center justify-center shrink-0 mt-0.5 text-sage">
+                      <CheckCircle2 className="size-4" />
+                    </div>
+                    <span className="text-earth/80 text-sm md:text-base">Herramientas prácticas para integrar la sanación en tu día a día.</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="relative z-10 flex flex-col sm:flex-row gap-3 mt-auto pt-8 border-t border-earth/10">
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-earth text-sand px-6 py-3.5 rounded-full text-xs font-medium tracking-wide hover:bg-earth/90 transition-all duration-300 active:scale-95 shadow-soft"
+                >
+                  <MessageCircle className="size-3.5" /> Reservar Sesión Individual
+                </a>
+                <a
+                  href="#sesiones"
+                  className="inline-flex items-center justify-center px-6 py-3.5 rounded-full text-xs font-medium tracking-wide border border-earth/20 text-earth hover:border-earth/50 hover:bg-earth/5 transition-all duration-300"
+                >
+                  Ver opciones y precios
+                </a>
+              </div>
+            </div>
+
+            {/* Tarjeta B: Programas */}
+            <div className="bg-earth text-sand rounded-[2rem] p-8 md:p-12 shadow-lift flex flex-col h-full relative overflow-hidden group hover:shadow-2xl transition-shadow duration-500">
+              {/* Decorative elements */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-rose/15 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-rose/25 transition-colors duration-500" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-sand/5 rounded-full blur-2xl -ml-10 -mb-10" />
+              
+              <div className="relative z-10 flex-1">
+                <span className="eyebrow text-rose mb-4 block">Procesos profundos</span>
+                <h3 className="font-serif text-3xl md:text-4xl mb-4">Programas y Formaciones</h3>
+                <p className="text-sand/80 mb-8 text-pretty">
+                  Experiencias intensivas (grupales o individuales) de varias semanas para quienes buscan una transformación de raíz, ritualizada y sostenida en el tiempo.
+                </p>
+                
+                <ul className="space-y-5 mb-10">
+                  <li className="flex items-start gap-4">
+                    <div className="size-6 rounded-full bg-rose/20 flex items-center justify-center shrink-0 mt-0.5 text-rose">
+                      <CheckCircle2 className="size-4" />
+                    </div>
+                    <span className="text-sand/90 text-sm md:text-base">Encuentros semanales recurrentes para anclar e integrar los cambios.</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="size-6 rounded-full bg-rose/20 flex items-center justify-center shrink-0 mt-0.5 text-rose">
+                      <CheckCircle2 className="size-4" />
+                    </div>
+                    <span className="text-sand/90 text-sm md:text-base">Grupos exclusivos de mujeres, mentorías y procesos 1 a 1 de meses.</span>
+                  </li>
+                  <li className="flex items-start gap-4">
+                    <div className="size-6 rounded-full bg-rose/20 flex items-center justify-center shrink-0 mt-0.5 text-rose">
+                      <CheckCircle2 className="size-4" />
+                    </div>
+                    <span className="text-sand/90 text-sm md:text-base">Material de apoyo exclusivo, ejercicios en casa y soporte continuo.</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="relative z-10 flex flex-col sm:flex-row gap-3 mt-auto pt-8 border-t border-sand/10">
+                <a
+                  href="#programas"
+                  className="inline-flex items-center justify-center gap-2 bg-sand text-earth px-6 py-3.5 rounded-full text-xs font-medium tracking-wide hover:bg-white transition-all duration-300 active:scale-95 shadow-soft"
+                >
+                  Ver Próximas Fechas y Programas <ArrowRight className="size-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* SERVICIOS / PROGRAMAS */}
-      <section className="py-24 px-6 bg-earth text-sand">
+      <section id="programas" className="py-24 px-6 bg-earth text-sand">
         <div className="max-w-screen-xl mx-auto">
           <div className="mb-16 max-w-2xl">
             <span className="eyebrow text-rose">Programas</span>
@@ -386,7 +506,7 @@ function Index() {
       </section>
 
       {/* SESIONES PUNTUALES */}
-      <section className="py-24 px-6 bg-beige/40 border-y border-earth/5">
+      <section id="sesiones" className="py-24 px-6 bg-beige/40 border-y border-earth/5">
         <div className="max-w-screen-xl mx-auto">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <span className="eyebrow text-rose">{sessionsData.sectionEyebrow}</span>
@@ -690,18 +810,62 @@ function ProgramCard({
   );
 }
 
-function TestimoniosCarrusel() {
-  const autoplay = useRef(Autoplay({ delay: 6000, stopOnInteraction: true }));
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
+function TestimonioCard({ t, p }: { t: any, p: any }) {
+  const [expanded, setExpanded] = useState(false);
+  const maxLength = 250;
+  const isLong = t.quote.length > maxLength;
+  
+  return (
+    <figure
+      className={`relative h-full flex flex-col ${p.bg} ring-1 ${p.ring} rounded-[2rem] p-8 md:p-14 shadow-soft`}
+    >
+      <span
+        className={`font-serif text-[8rem] leading-none ${p.quote} absolute top-2 left-6 select-none opacity-40`}
+        aria-hidden
+      >
+        “
+      </span>
+      <div className="relative flex flex-col h-full flex-1">
+        <div className="mb-6">
+          <span
+            className={`inline-block ${p.chip} eyebrow rounded-full px-3 py-1`}
+          >
+            {t.proceso}
+          </span>
+        </div>
+        
+        <h4 className="font-serif text-2xl md:text-3xl text-earth mb-6 italic">
+          {t.title}
+        </h4>
+        
+        <blockquote className="font-serif text-lg md:text-xl leading-relaxed text-earth/90 mb-8 flex-1">
+          {expanded || !isLong ? t.quote : `${t.quote.substring(0, maxLength)}...`}
+          {isLong && (
+            <button 
+              onClick={() => setExpanded(!expanded)} 
+              className="block mt-4 cursor-pointer text-sm font-sans font-medium text-earth hover:text-rose transition-colors underline underline-offset-4"
+            >
+              {expanded ? "Leer menos" : "Leer más"}
+            </button>
+          )}
+        </blockquote>
+        
+        <figcaption className="flex items-center gap-3 mt-auto pt-6 border-t border-earth/10">
+          <div className="size-10 rounded-full bg-earth/10 grid place-items-center font-serif text-earth shrink-0">
+            {t.name.charAt(0)}
+          </div>
+          <div>
+            <p className="font-medium text-earth text-sm">{t.name}</p>
+            <p className="eyebrow text-earth/50">{t.place}</p>
+          </div>
+        </figcaption>
+      </div>
+    </figure>
+  );
+}
 
-  useEffect(() => {
-    if (!api) return;
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap());
-    api.on("select", () => setCurrent(api.selectedScrollSnap()));
-  }, [api]);
+function TestimoniosCarrusel() {
+  const [api, setApi] = useState<CarouselApi>();
 
   return (
     <section className="relative py-28 px-6 overflow-hidden">
@@ -726,64 +890,23 @@ function TestimoniosCarrusel() {
 
         <Carousel
           opts={{ align: "center", loop: true }}
-          plugins={[autoplay.current]}
           setApi={setApi}
           className="mx-auto"
         >
-          <CarouselContent>
+          <CarouselContent className="items-stretch">
             {testimonios.map((t, i) => {
               const p = paletteStyles[t.palette] ?? paletteStyles.rose;
               return (
-                <CarouselItem key={i} className="md:basis-4/5 lg:basis-3/4">
-                  <figure
-                    className={`relative ${p.bg} ring-1 ${p.ring} rounded-[2rem] p-8 md:p-14 shadow-soft`}
-                  >
-                    <span
-                      className={`font-serif text-[8rem] leading-none ${p.quote} absolute top-2 left-6 select-none`}
-                      aria-hidden
-                    >
-                      “
-                    </span>
-                    <div className="relative">
-                      <span
-                        className={`inline-block ${p.chip} eyebrow rounded-full px-3 py-1 mb-6`}
-                      >
-                        {t.proceso}
-                      </span>
-                      <blockquote className="font-serif text-xl md:text-2xl leading-relaxed italic text-earth/90 mb-8">
-                        {t.quote}
-                      </blockquote>
-                      <figcaption className="flex items-center gap-3">
-                        <div className="size-10 rounded-full bg-earth/10 grid place-items-center font-serif text-earth">
-                          {t.name.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="font-medium text-earth text-sm">{t.name}</p>
-                          <p className="eyebrow text-earth/50">{t.place}</p>
-                        </div>
-                      </figcaption>
-                    </div>
-                  </figure>
+                <CarouselItem key={i} className="md:basis-4/5 lg:basis-3/4 h-auto">
+                  <TestimonioCard t={t} p={p} />
                 </CarouselItem>
               );
             })}
           </CarouselContent>
 
-          <div className="flex items-center justify-center gap-4 mt-10">
-            <CarouselPrevious className="static translate-y-0 size-10 border-earth/15 bg-cream/80 hover:bg-cream text-earth" />
-            <div className="flex items-center gap-2">
-              {Array.from({ length: count }).map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => api?.scrollTo(i)}
-                  aria-label={`Ir al testimonio ${i + 1}`}
-                  className={`h-1.5 rounded-full transition-all ${
-                    current === i ? "w-8 bg-earth" : "w-2 bg-earth/25"
-                  }`}
-                />
-              ))}
-            </div>
-            <CarouselNext className="static translate-y-0 size-10 border-earth/15 bg-cream/80 hover:bg-cream text-earth" />
+          <div className="flex items-center justify-center gap-6 mt-12">
+            <CarouselPrevious className="static translate-y-0 size-14 border-earth/20 bg-cream hover:bg-white text-earth hover:text-rose transition-colors shadow-soft" />
+            <CarouselNext className="static translate-y-0 size-14 border-earth/20 bg-cream hover:bg-white text-earth hover:text-rose transition-colors shadow-soft" />
           </div>
         </Carousel>
       </div>
