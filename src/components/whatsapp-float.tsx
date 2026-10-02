@@ -29,10 +29,10 @@ export function WhatsAppFloat() {
   }, []);
 
   return (
-    <div ref={menuRef} className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div ref={menuRef} className="fixed bottom-6 right-6 z-50 flex flex-col items-end pointer-events-none">
       {/* Menu desplegable */}
       <div 
-        className={`mb-4 bg-sand border border-earth/10 rounded-2xl p-2 w-[340px] shadow-lift transition-all duration-300 origin-bottom-right ${
+        className={`pointer-events-auto mb-4 bg-sand border border-earth/10 rounded-2xl p-2 w-[calc(100vw-3rem)] sm:w-[340px] shadow-lift transition-all duration-300 origin-bottom-right ${
           isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-4 pointer-events-none"
         }`}
       >
@@ -58,7 +58,7 @@ export function WhatsAppFloat() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Abrir chat de WhatsApp"
-        className="cursor-pointer size-14 bg-[#25D366] rounded-full grid place-items-center shadow-lift hover:scale-105 transition-transform duration-300 ring-4 ring-white/40"
+        className="pointer-events-auto cursor-pointer size-14 bg-[#25D366] rounded-full grid place-items-center shadow-lift hover:scale-105 transition-transform duration-300 ring-4 ring-white/40"
       >
         {isOpen ? (
           <X className="size-7 text-white" />
