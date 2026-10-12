@@ -527,80 +527,90 @@ function Index() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {sessionsData.cards.map((card, idx) => {
-              // Select icon
-              const Icon = card.icon === "compass" ? Compass 
-                         : card.icon === "zap" ? Zap 
-                         : card.icon === "star" ? Sparkles 
-                         : Heart;
-              
-              // Alternate colors
-              const isAccent = idx % 2 === 1; 
-              const accentColor = isAccent ? "text-bloom" : "text-sage";
-              const accentBg = isAccent ? "bg-peach/40" : "bg-mint/30";
-              const priceColor = isAccent ? "text-bloom" : "text-earth";
+          <Carousel
+            opts={{ align: "start", loop: false }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-6 items-stretch">
+              {sessionsData.cards.map((card, idx) => {
+                // Select icon
+                const Icon = card.icon === "compass" ? Compass 
+                           : card.icon === "zap" ? Zap 
+                           : card.icon === "star" ? Sparkles 
+                           : Heart;
+                
+                // Alternate colors
+                const isAccent = idx % 2 === 1; 
+                const accentColor = isAccent ? "text-bloom" : "text-sage";
+                const accentBg = isAccent ? "bg-peach/40" : "bg-mint/30";
+                const priceColor = isAccent ? "text-bloom" : "text-earth";
 
-              const isOddTotal = sessionsData.cards.length % 2 !== 0;
-              const isLastCard = idx === sessionsData.cards.length - 1;
-              const gridSpanClass = isOddTotal && isLastCard 
-                ? "md:col-span-2 md:col-start-2" 
-                : "md:col-span-2";
-
-              return (
-                <article 
-                  key={card.id} 
-                  className={`bg-cream ring-1 ring-earth/5 rounded-3xl p-8 flex flex-col relative overflow-hidden ${gridSpanClass}`}
-                >
-                  {card.isPopular && (
-                    <span className={`absolute top-6 right-6 eyebrow ${accentColor} bg-bloom/10 px-3 py-1 rounded-full`}>
-                      Más elegida
-                    </span>
-                  )}
-                  
-                  <div className={`size-12 ${accentBg} rounded-full grid place-items-center mb-6`}>
-                    <Icon className={`size-5 ${accentColor}`} />
-                  </div>
-                  <span className="eyebrow text-earth/50 mb-2">{card.eyebrow}</span>
-                  <h3 className="font-serif text-2xl mb-3">{card.title}</h3>
-                  <p className="text-sm text-earth/65 leading-relaxed mb-6">
-                    {card.description}
-                  </p>
-                  <ul className="space-y-2 text-sm text-earth/70 mb-8">
-                    <li className="flex gap-2 items-center">
-                      <Clock className={`size-4 ${accentColor}`} /> {card.duration}
-                    </li>
-                    <li className="flex gap-2 items-center">
-                      <Check className={`size-4 ${accentColor}`} /> {card.detail}
-                    </li>
-                  </ul>
-                  
-                  <div className="mt-auto flex items-end justify-between pt-6 border-t border-earth/10">
-                    <div>
-                      {card.hasPromo && (
-                        <div className="flex items-center gap-2 mb-1">
-                          <p className="font-serif text-xl text-earth/40 line-through">{card.oldPrice}</p>
-                          <span className={`eyebrow text-[10px] ${accentColor} bg-bloom/10 px-2 py-0.5 rounded-full`}>
-                            solo por hoy
-                          </span>
-                        </div>
-                      )}
-                      <p className={`font-serif text-3xl ${priceColor}`}>{card.price}</p>
-                      <p className="text-xs text-earth/50">Encuentro único</p>
-                    </div>
-                    <a
-                      href={WHATSAPP_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 bg-earth text-sand px-5 py-3 rounded-full text-xs font-medium hover:bg-earth/90 transition-colors"
+                return (
+                  <CarouselItem
+                    key={card.id}
+                    className="pl-6 basis-full sm:basis-1/2 lg:basis-1/3 h-auto"
+                  >
+                    <article 
+                      className="h-full bg-cream ring-1 ring-earth/5 rounded-3xl p-8 flex flex-col relative overflow-hidden shadow-soft"
                     >
-                      Reservar <ArrowRight className="size-3.5" />
-                    </a>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                      {card.isPopular && (
+                        <span className={`absolute top-6 right-6 eyebrow ${accentColor} bg-bloom/10 px-3 py-1 rounded-full`}>
+                          Más elegida
+                        </span>
+                      )}
+                      
+                      <div className={`size-12 ${accentBg} rounded-full grid place-items-center mb-6`}>
+                        <Icon className={`size-5 ${accentColor}`} />
+                      </div>
+                      <span className="eyebrow text-earth/50 mb-2">{card.eyebrow}</span>
+                      <h3 className="font-serif text-2xl mb-3">{card.title}</h3>
+                      <p className="text-sm text-earth/65 leading-relaxed mb-6">
+                        {card.description}
+                      </p>
+                      <ul className="space-y-2 text-sm text-earth/70 mb-8">
+                        <li className="flex gap-2 items-center">
+                          <Clock className={`size-4 ${accentColor}`} /> {card.duration}
+                        </li>
+                        <li className="flex gap-2 items-center">
+                          <Check className={`size-4 ${accentColor}`} /> {card.detail}
+                        </li>
+                      </ul>
+                      
+                      <div className="mt-auto flex items-end justify-between pt-6 border-t border-earth/10">
+                        <div>
+                          {card.hasPromo && (
+                            <div className="flex items-center gap-2 mb-1">
+                              <p className="font-serif text-xl text-earth/40 line-through">{card.oldPrice}</p>
+                              <span className={`eyebrow text-[10px] ${accentColor} bg-bloom/10 px-2 py-0.5 rounded-full`}>
+                                solo por hoy
+                              </span>
+                            </div>
+                          )}
+                          <p className={`font-serif text-3xl ${priceColor}`}>{card.price}</p>
+                          <p className="text-xs text-earth/50">Encuentro único</p>
+                        </div>
+                        <a
+                          href={WHATSAPP_URL}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 bg-earth text-sand px-5 py-3 rounded-full text-xs font-medium hover:bg-earth/90 transition-colors"
+                        >
+                          Reservar <ArrowRight className="size-3.5" />
+                        </a>
+                      </div>
+                    </article>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+
+            {sessionsData.cards.length > 1 && (
+              <div className={`flex items-center justify-center gap-6 mt-12 ${sessionsData.cards.length <= 3 ? "lg:hidden" : ""}`}>
+                <CarouselPrevious className="static translate-y-0 size-12 md:size-14 border-earth/20 bg-cream hover:bg-white text-earth hover:text-rose transition-colors shadow-soft cursor-pointer" />
+                <CarouselNext className="static translate-y-0 size-12 md:size-14 border-earth/20 bg-cream hover:bg-white text-earth hover:text-rose transition-colors shadow-soft cursor-pointer" />
+              </div>
+            )}
+          </Carousel>
         </div>
       </section>
 
