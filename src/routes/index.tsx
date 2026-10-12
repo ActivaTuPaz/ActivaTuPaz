@@ -527,6 +527,12 @@ function Index() {
             </p>
           </div>
 
+          {/* Indicador móvil para deslizar */}
+          <div className="lg:hidden flex items-center justify-center gap-1.5 -mt-6 mb-8 text-xs font-semibold tracking-wide text-[#E05275]">
+            <span>Deslizá las tarjetas para ver más</span>
+            <ArrowRight className="size-3.5 animate-pulse" />
+          </div>
+
           <Carousel
             opts={{ align: "start", loop: false }}
             className="w-full"
