@@ -132,7 +132,7 @@ const programasList = [
     title: "Desde la Raíz",
     text: "Un viaje profundo hacia tu historia familiar para liberar lealtades invisibles y desatar nudos sistémicos.",
     to: "/desde-la-raiz",
-    accent: "sage" as const,
+    accent: "rose" as const,
     priceLabel: "4 encuentros · 2 meses",
     note: "Inversión disponible al entrar al programa",
   },
@@ -154,7 +154,7 @@ const programasList = [
     title: "Mentoría para Maestras",
     text: "Armá tu propio método terapéutico. De tener muchas herramientas a estructurar tus sesiones y acompañar con seguridad.",
     to: "/mentoria-maestras",
-    accent: "bloom" as const,
+    accent: "rose" as const,
     priceLabel: "6 encuentros individuales",
     note: "Inversión disponible al entrar al programa",
   },
@@ -165,7 +165,7 @@ const programasList = [
     title: "Dar y Recibir",
     text: "Liberá las creencias limitantes sobre dar y recibir. Aprendé a merecer amor, cuidado y abundancia sin culpa.",
     to: "/dar-y-recibir",
-    accent: "peach" as const,
+    accent: "rose" as const,
     priceLabel: "Programa individual intensivo",
     note: "Inversión disponible al entrar al programa",
   },
@@ -882,7 +882,7 @@ function ProgramCard({
   title,
   text,
   to,
-  accent = "sage",
+  accent = "rose",
   priceLabel,
   note,
 }: {
@@ -892,17 +892,11 @@ function ProgramCard({
   title: string;
   text: string;
   to: string;
-  accent?: "sage" | "rose" | "bloom" | "peach";
+  accent?: string;
   priceLabel: string;
   note: string;
 }) {
-  const accentColor = accent === "rose" 
-    ? "text-rose border-rose/40" 
-    : accent === "bloom" 
-    ? "text-bloom border-bloom/40" 
-    : accent === "peach" 
-    ? "text-peach border-peach/40" 
-    : "text-sage border-sage/40";
+  const accentColor = "text-rose border-rose/40 hover:text-rose/80";
   return (
     <article className="group flex flex-col h-full gap-6">
       <div className="overflow-hidden rounded-3xl ring-1 ring-sand/10">
@@ -923,7 +917,7 @@ function ProgramCard({
           <p className="eyebrow text-sand/40">{priceLabel}</p>
           <p className="text-xs text-sand/50">{note}</p>
         </div>
-        <Link to={to} className={`inline-flex items-center gap-2 text-sm font-medium border-b pb-1 w-fit ${accentColor}`}>
+        <Link to={to} className={`inline-flex items-center gap-2 text-sm font-medium border-b pb-1 w-fit transition-colors ${accentColor}`}>
           Ver detalles e inversión <ArrowRight className="size-4" />
         </Link>
       </div>
