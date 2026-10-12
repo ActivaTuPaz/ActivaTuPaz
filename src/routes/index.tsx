@@ -5,7 +5,7 @@ import todoEsDivino from "@/assets/todo-es-divino.jpg";
 import handsCup from "@/assets/hands-cup.jpg";
 import desdeLaRaiz from "@/assets/desde-la-raiz.jpg";
 import mujerRenace from "@/assets/mujer-renace.jpg";
-import { WHATSAPP_URL, INSTAGRAM_URL } from "@/lib/contact";
+import { WHATSAPP_URL, INSTAGRAM_URL, WHATSAPP_NUMBER } from "@/lib/contact";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useRef, useState } from "react";
@@ -554,6 +554,18 @@ function Index() {
                 const accentBg = isAccent ? "bg-peach/40" : "bg-mint/30";
                 const priceColor = isAccent ? "text-bloom" : "text-earth";
 
+                // Mensaje personalizado de WhatsApp según la sesión
+                const titleLower = card.title.toLowerCase();
+                let waMessage = `Hola Lorena, quiero reservar una sesión de ${card.title}.`;
+                if (titleLower.includes("explorador")) {
+                  waMessage = "Hola Lorena, quiero reservar una Sesión Exploradora de 30 minutos.";
+                } else if (titleLower.includes("constelaci")) {
+                  waMessage = "Hola Lorena, quiero reservar una sesión individual de Constelaciones familiares.";
+                } else if (titleLower.includes("power")) {
+                  waMessage = "Hola Lorena, quiero reservar la Sesión Súper Power de 120 minutos.";
+                }
+                const cardWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waMessage)}`;
+
                 return (
                   <CarouselItem
                     key={card.id}
@@ -599,7 +611,7 @@ function Index() {
                           <p className="text-xs text-earth/50">Encuentro único</p>
                         </div>
                         <a
-                          href={WHATSAPP_URL}
+                          href={cardWhatsAppUrl}
                           target="_blank"
                           rel="noreferrer"
                           className="inline-flex items-center gap-2 bg-earth text-sand px-5 py-3 rounded-full text-xs font-medium hover:bg-earth/90 transition-colors"
