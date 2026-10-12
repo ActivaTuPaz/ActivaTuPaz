@@ -9,56 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SobreMiRouteImport } from './routes/sobre-mi'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as MujerReNaceRouteImport } from './routes/mujer-re-nace'
-import { Route as MentoriaMaestrasRouteImport } from './routes/mentoria-maestras'
-import { Route as EntrevistaPreviaRouteImport } from './routes/entrevista-previa'
-import { Route as DesdeLaRaizRouteImport } from './routes/desde-la-raiz'
-import { Route as DarYRecibirRouteImport } from './routes/dar-y-recibir'
-import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as DarYRecibirRouteImport } from './routes/dar-y-recibir'
+import { Route as DesdeLaRaizRouteImport } from './routes/desde-la-raiz'
+import { Route as EntrevistaPreviaRouteImport } from './routes/entrevista-previa'
+import { Route as MentoriaMaestrasRouteImport } from './routes/mentoria-maestras'
+import { Route as MujerReNaceRouteImport } from './routes/mujer-re-nace'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SobreMiRouteImport } from './routes/sobre-mi'
 import { Route as AdminProtectedRouteImport } from './routes/admin/_protected'
+import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as AdminProtectedIndexRouteImport } from './routes/admin/_protected/index'
-import { Route as AdminProtectedSesionesRouteImport } from './routes/admin/_protected/sesiones'
-import { Route as AdminProtectedProgramasRouteImport } from './routes/admin/_protected/programas'
-import { Route as AdminProtectedMetodologiaRouteImport } from './routes/admin/_protected/metodologia'
 import { Route as AdminProtectedEntrevistasRouteImport } from './routes/admin/_protected/entrevistas'
+import { Route as AdminProtectedMetodologiaRouteImport } from './routes/admin/_protected/metodologia'
+import { Route as AdminProtectedProgramasRouteImport } from './routes/admin/_protected/programas'
+import { Route as AdminProtectedSesionesRouteImport } from './routes/admin/_protected/sesiones'
 
-const SobreMiRoute = SobreMiRouteImport.update({
-  id: '/sobre-mi',
-  path: '/sobre-mi',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MujerReNaceRoute = MujerReNaceRouteImport.update({
-  id: '/mujer-re-nace',
-  path: '/mujer-re-nace',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MentoriaMaestrasRoute = MentoriaMaestrasRouteImport.update({
-  id: '/mentoria-maestras',
-  path: '/mentoria-maestras',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EntrevistaPreviaRoute = EntrevistaPreviaRouteImport.update({
-  id: '/entrevista-previa',
-  path: '/entrevista-previa',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DesdeLaRaizRoute = DesdeLaRaizRouteImport.update({
-  id: '/desde-la-raiz',
-  path: '/desde-la-raiz',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DarYRecibirRoute = DarYRecibirRouteImport.update({
-  id: '/dar-y-recibir',
-  path: '/dar-y-recibir',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactoRoute = ContactoRouteImport.update({
@@ -66,14 +36,39 @@ const ContactoRoute = ContactoRouteImport.update({
   path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const DarYRecibirRoute = DarYRecibirRouteImport.update({
+  id: '/dar-y-recibir',
+  path: '/dar-y-recibir',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminLoginRoute = AdminLoginRouteImport.update({
-  id: '/admin/login',
-  path: '/admin/login',
+const DesdeLaRaizRoute = DesdeLaRaizRouteImport.update({
+  id: '/desde-la-raiz',
+  path: '/desde-la-raiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrevistaPreviaRoute = EntrevistaPreviaRouteImport.update({
+  id: '/entrevista-previa',
+  path: '/entrevista-previa',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentoriaMaestrasRoute = MentoriaMaestrasRouteImport.update({
+  id: '/mentoria-maestras',
+  path: '/mentoria-maestras',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MujerReNaceRoute = MujerReNaceRouteImport.update({
+  id: '/mujer-re-nace',
+  path: '/mujer-re-nace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreMiRoute = SobreMiRouteImport.update({
+  id: '/sobre-mi',
+  path: '/sobre-mi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminProtectedRoute = AdminProtectedRouteImport.update({
@@ -81,9 +76,31 @@ const AdminProtectedRoute = AdminProtectedRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminProtectedIndexRoute = AdminProtectedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AdminProtectedRoute,
+} as any)
+const AdminProtectedEntrevistasRoute =
+  AdminProtectedEntrevistasRouteImport.update({
+    id: '/entrevistas',
+    path: '/entrevistas',
+    getParentRoute: () => AdminProtectedRoute,
+  } as any)
+const AdminProtectedMetodologiaRoute =
+  AdminProtectedMetodologiaRouteImport.update({
+    id: '/metodologia',
+    path: '/metodologia',
+    getParentRoute: () => AdminProtectedRoute,
+  } as any)
+const AdminProtectedProgramasRoute = AdminProtectedProgramasRouteImport.update({
+  id: '/programas',
+  path: '/programas',
   getParentRoute: () => AdminProtectedRoute,
 } as any)
 const AdminProtectedSesionesRoute = AdminProtectedSesionesRouteImport.update({
@@ -91,23 +108,6 @@ const AdminProtectedSesionesRoute = AdminProtectedSesionesRouteImport.update({
   path: '/sesiones',
   getParentRoute: () => AdminProtectedRoute,
 } as any)
-const AdminProtectedProgramasRoute = AdminProtectedProgramasRouteImport.update({
-  id: '/programas',
-  path: '/programas',
-  getParentRoute: () => AdminProtectedRoute,
-} as any)
-const AdminProtectedMetodologiaRoute =
-  AdminProtectedMetodologiaRouteImport.update({
-    id: '/metodologia',
-    path: '/metodologia',
-    getParentRoute: () => AdminProtectedRoute,
-  } as any)
-const AdminProtectedEntrevistasRoute =
-  AdminProtectedEntrevistasRouteImport.update({
-    id: '/entrevistas',
-    path: '/entrevistas',
-    getParentRoute: () => AdminProtectedRoute,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -235,53 +235,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sobre-mi': {
-      id: '/sobre-mi'
-      path: '/sobre-mi'
-      fullPath: '/sobre-mi'
-      preLoaderRoute: typeof SobreMiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mujer-re-nace': {
-      id: '/mujer-re-nace'
-      path: '/mujer-re-nace'
-      fullPath: '/mujer-re-nace'
-      preLoaderRoute: typeof MujerReNaceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mentoria-maestras': {
-      id: '/mentoria-maestras'
-      path: '/mentoria-maestras'
-      fullPath: '/mentoria-maestras'
-      preLoaderRoute: typeof MentoriaMaestrasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/entrevista-previa': {
-      id: '/entrevista-previa'
-      path: '/entrevista-previa'
-      fullPath: '/entrevista-previa'
-      preLoaderRoute: typeof EntrevistaPreviaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/desde-la-raiz': {
-      id: '/desde-la-raiz'
-      path: '/desde-la-raiz'
-      fullPath: '/desde-la-raiz'
-      preLoaderRoute: typeof DesdeLaRaizRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dar-y-recibir': {
-      id: '/dar-y-recibir'
-      path: '/dar-y-recibir'
-      fullPath: '/dar-y-recibir'
-      preLoaderRoute: typeof DarYRecibirRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contacto': {
@@ -291,18 +249,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/dar-y-recibir': {
+      id: '/dar-y-recibir'
+      path: '/dar-y-recibir'
+      fullPath: '/dar-y-recibir'
+      preLoaderRoute: typeof DarYRecibirRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/login': {
-      id: '/admin/login'
-      path: '/admin/login'
-      fullPath: '/admin/login'
-      preLoaderRoute: typeof AdminLoginRouteImport
+    '/desde-la-raiz': {
+      id: '/desde-la-raiz'
+      path: '/desde-la-raiz'
+      fullPath: '/desde-la-raiz'
+      preLoaderRoute: typeof DesdeLaRaizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrevista-previa': {
+      id: '/entrevista-previa'
+      path: '/entrevista-previa'
+      fullPath: '/entrevista-previa'
+      preLoaderRoute: typeof EntrevistaPreviaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentoria-maestras': {
+      id: '/mentoria-maestras'
+      path: '/mentoria-maestras'
+      fullPath: '/mentoria-maestras'
+      preLoaderRoute: typeof MentoriaMaestrasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mujer-re-nace': {
+      id: '/mujer-re-nace'
+      path: '/mujer-re-nace'
+      fullPath: '/mujer-re-nace'
+      preLoaderRoute: typeof MujerReNaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre-mi': {
+      id: '/sobre-mi'
+      path: '/sobre-mi'
+      fullPath: '/sobre-mi'
+      preLoaderRoute: typeof SobreMiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/_protected': {
@@ -312,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProtectedRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/login': {
+      id: '/admin/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/_protected/': {
       id: '/admin/_protected/'
       path: '/'
@@ -319,18 +319,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProtectedIndexRouteImport
       parentRoute: typeof AdminProtectedRoute
     }
-    '/admin/_protected/sesiones': {
-      id: '/admin/_protected/sesiones'
-      path: '/sesiones'
-      fullPath: '/admin/sesiones'
-      preLoaderRoute: typeof AdminProtectedSesionesRouteImport
-      parentRoute: typeof AdminProtectedRoute
-    }
-    '/admin/_protected/programas': {
-      id: '/admin/_protected/programas'
-      path: '/programas'
-      fullPath: '/admin/programas'
-      preLoaderRoute: typeof AdminProtectedProgramasRouteImport
+    '/admin/_protected/entrevistas': {
+      id: '/admin/_protected/entrevistas'
+      path: '/entrevistas'
+      fullPath: '/admin/entrevistas'
+      preLoaderRoute: typeof AdminProtectedEntrevistasRouteImport
       parentRoute: typeof AdminProtectedRoute
     }
     '/admin/_protected/metodologia': {
@@ -340,11 +333,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProtectedMetodologiaRouteImport
       parentRoute: typeof AdminProtectedRoute
     }
-    '/admin/_protected/entrevistas': {
-      id: '/admin/_protected/entrevistas'
-      path: '/entrevistas'
-      fullPath: '/admin/entrevistas'
-      preLoaderRoute: typeof AdminProtectedEntrevistasRouteImport
+    '/admin/_protected/programas': {
+      id: '/admin/_protected/programas'
+      path: '/programas'
+      fullPath: '/admin/programas'
+      preLoaderRoute: typeof AdminProtectedProgramasRouteImport
+      parentRoute: typeof AdminProtectedRoute
+    }
+    '/admin/_protected/sesiones': {
+      id: '/admin/_protected/sesiones'
+      path: '/sesiones'
+      fullPath: '/admin/sesiones'
+      preLoaderRoute: typeof AdminProtectedSesionesRouteImport
       parentRoute: typeof AdminProtectedRoute
     }
   }

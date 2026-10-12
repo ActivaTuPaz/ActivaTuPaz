@@ -157,6 +157,15 @@ const testimonios = [
     proceso: "Biodecodificación Emocional",
     palette: "peach",
   },
+  {
+    title: "\"Escucharme y permitirme sentir también es parte de sanar\"",
+    quote:
+      "La biodecodificación fue una experiencia de mucho aprendizaje, reflexión y conexión conmigo misma. Me permitió mirar hacia adentro, reconocer emociones, comprender situaciones desde otra perspectiva y darle un lugar a todo aquello que muchas veces guardamos en silencio sin intención. Que cada proceso tiene su tiempo y que no siempre necesitamos tener todas las respuestas para seguir avanzando. Hoy elijo seguir creciendo, soltar lo que ya no me hace bien y confiar en mi proceso. Gracias Lore de corazón, sos una gran persona.",
+    name: "Natalia",
+    place: "Ciudad Autónoma de Bs As",
+    proceso: "Biodecodificación Emocional",
+    palette: "bloom",
+  },
 ];
 
 const paletteStyles: Record<string, { bg: string; ring: string; chip: string; quote: string }> = {
@@ -518,7 +527,7 @@ function Index() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {sessionsData.cards.map((card, idx) => {
               // Select icon
               const Icon = card.icon === "compass" ? Compass 
@@ -532,8 +541,17 @@ function Index() {
               const accentBg = isAccent ? "bg-peach/40" : "bg-mint/30";
               const priceColor = isAccent ? "text-bloom" : "text-earth";
 
+              const isOddTotal = sessionsData.cards.length % 2 !== 0;
+              const isLastCard = idx === sessionsData.cards.length - 1;
+              const gridSpanClass = isOddTotal && isLastCard 
+                ? "md:col-span-2 md:col-start-2" 
+                : "md:col-span-2";
+
               return (
-                <article key={card.id} className="bg-cream ring-1 ring-earth/5 rounded-3xl p-8 flex flex-col relative overflow-hidden">
+                <article 
+                  key={card.id} 
+                  className={`bg-cream ring-1 ring-earth/5 rounded-3xl p-8 flex flex-col relative overflow-hidden ${gridSpanClass}`}
+                >
                   {card.isPopular && (
                     <span className={`absolute top-6 right-6 eyebrow ${accentColor} bg-bloom/10 px-3 py-1 rounded-full`}>
                       Más elegida
