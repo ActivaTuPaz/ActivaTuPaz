@@ -475,45 +475,6 @@ function Index() {
         </div>
       </section>
 
-      {/* SERVICIOS / PROGRAMAS */}
-      <section id="programas" className="py-24 px-6 bg-earth text-sand">
-        <div className="max-w-screen-xl mx-auto">
-          <div className="mb-16 max-w-2xl">
-            <span className="eyebrow text-rose">Programas</span>
-            <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4 text-balance">Espacios de transformación</h2>
-            <p className="text-sand/70 text-base max-w-xl">
-              Procesos diseñados para tu evolución personal con un enfoque
-              integral, humano y profesional.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <ProgramCard
-              img={desdeLaRaiz}
-              alt="Hojas de salvia en niebla matinal"
-              eyebrow="Acompañamiento individual"
-              title="Desde la Raíz"
-              text="Un viaje profundo hacia tu historia familiar para liberar lealtades invisibles y desatar nudos sistémicos."
-              to="/desde-la-raiz"
-              accent="sage"
-              priceLabel="4 encuentros · 2 meses"
-              note="Inversión disponible al entrar al programa"
-            />
-            <ProgramCard
-              img={mujerRenace}
-              alt="Forma orgánica en tonos rosa empolvado"
-              eyebrow="Experiencia femenina"
-              title="Mujer Re-Nace"
-              text="Un espacio sagrado para reencontrarte con tu esencia y recuperar tu poder creador."
-              to="/mujer-re-nace"
-              accent="rose"
-              priceLabel="12 encuentros semanales"
-              note="Inversión disponible al entrar al programa"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* SESIONES PUNTUALES */}
       <section id="sesiones" className="py-24 px-6 bg-beige/40 border-y border-earth/5">
         <div className="max-w-screen-xl mx-auto">
@@ -632,6 +593,45 @@ function Index() {
               </div>
             )}
           </Carousel>
+        </div>
+      </section>
+
+      {/* SERVICIOS / PROGRAMAS */}
+      <section id="programas" className="py-24 px-6 bg-earth text-sand">
+        <div className="max-w-screen-xl mx-auto">
+          <div className="mb-16 max-w-2xl">
+            <span className="eyebrow text-rose">Programas</span>
+            <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4 text-balance">Espacios de transformación</h2>
+            <p className="text-sand/70 text-base max-w-xl">
+              Procesos diseñados para tu evolución personal con un enfoque
+              integral, humano y profesional.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <ProgramCard
+              img={desdeLaRaiz}
+              alt="Hojas de salvia en niebla matinal"
+              eyebrow="Acompañamiento individual"
+              title="Desde la Raíz"
+              text="Un viaje profundo hacia tu historia familiar para liberar lealtades invisibles y desatar nudos sistémicos."
+              to="/desde-la-raiz"
+              accent="sage"
+              priceLabel="4 encuentros · 2 meses"
+              note="Inversión disponible al entrar al programa"
+            />
+            <ProgramCard
+              img={mujerRenace}
+              alt="Forma orgánica en tonos rosa empolvado"
+              eyebrow="Experiencia femenina"
+              title="Mujer Re-Nace"
+              text="Un espacio sagrado para reencontrarte con tu esencia y recuperar tu poder creador."
+              to="/mujer-re-nace"
+              accent="rose"
+              priceLabel="12 encuentros semanales"
+              note="Inversión disponible al entrar al programa"
+            />
+          </div>
         </div>
       </section>
 
