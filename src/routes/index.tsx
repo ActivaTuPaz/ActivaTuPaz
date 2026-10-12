@@ -528,9 +528,12 @@ function Index() {
           </div>
 
           {/* Indicador móvil para deslizar */}
-          <div className="lg:hidden flex items-center justify-center gap-1.5 -mt-6 mb-8 text-xs font-semibold tracking-wide text-[#E05275]">
-            <span>Deslizá las tarjetas para ver más</span>
-            <ArrowRight className="size-3.5 animate-pulse" />
+          <div className="lg:hidden flex items-center justify-center -mt-10 mb-3">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-rose drop-shadow-[0_0_8px_rgba(212,163,158,0.95)] drop-shadow-[0_0_16px_rgba(212,163,158,0.6)] animate-pulse">
+              <Sparkles className="size-3.5 text-rose" />
+              <span>Deslizá las tarjetas para ver más</span>
+              <ArrowRight className="size-3.5 text-rose" />
+            </span>
           </div>
 
           <Carousel
