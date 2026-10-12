@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Check, CheckCircle2, Clock, Compass, Download, FileText, Headphones, Heart, Instagram, Leaf, MessageCircle, Sparkles, Sun, TreeDeciduous, Zap } from "lucide-react";
+import { ArrowDown, ArrowRight, Check, CheckCircle2, Clock, Compass, Download, FileText, Headphones, Heart, Instagram, Leaf, MessageCircle, Sparkles, Sun, TreeDeciduous, Zap } from "lucide-react";
 import lorenaReal from "@/assets/lorena-real.jpg";
 import todoEsDivino from "@/assets/todo-es-divino.jpg";
 import handsCup from "@/assets/hands-cup.jpg";
@@ -520,6 +520,156 @@ function Index() {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NUEVO BLOQUE: ¿POR DÓNDE EMPEZAR? */}
+      <section id="por-donde-empezar" className="py-24 px-6 relative overflow-hidden bg-sand border-t border-earth/5">
+        {/* Fondo sutil con resplandor orgánico */}
+        <div aria-hidden className="absolute inset-0 pointer-events-none -z-10">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-rose/10 via-bloom/10 to-sage/10 blur-3xl rounded-full opacity-60" />
+        </div>
+
+        <div className="max-w-screen-xl mx-auto">
+          {/* Encabezado del bloque */}
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="eyebrow text-rose">Guía para tu camino</span>
+            <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4 text-balance">
+              ¿Por dónde <span className="italic text-bloom">empezar</span>?
+            </h2>
+            <p className="text-earth/70 text-pretty text-base md:text-lg">
+              Cada historia pide su propio tiempo y espacio. Elegí la opción que mejor conecte con lo que hoy estás sintiendo:
+            </p>
+          </div>
+
+          {/* 3 opciones en fila (apiladas en móvil) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+            {/* Opción 1: Quiero conocerte primero */}
+            <a
+              href="#sesiones"
+              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-sage/50 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-sage/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+              
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="size-12 rounded-2xl bg-sage/15 text-sage grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
+                    <Compass className="size-6" />
+                  </div>
+                  <span className="font-serif italic text-3xl text-earth/20 group-hover:text-sage/40 transition-colors">
+                    01
+                  </span>
+                </div>
+
+                <div className="mb-3">
+                  <span className="eyebrow text-[10px] bg-sage/15 text-sage px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">
+                    Primer acercamiento
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-2xl md:text-3xl text-earth mb-3 leading-snug group-hover:text-sage transition-colors">
+                  Quiero conocerte primero
+                </h3>
+
+                <p className="text-sm text-earth/65 leading-relaxed mb-6">
+                  Sentís curiosidad o dudas y necesitás un espacio accesible de 30 minutos para poner palabras a lo que te pasa y sentir si mi mirada resuena con vos.
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-earth/10 flex items-center justify-between mt-auto">
+                <span className="text-xs font-semibold tracking-wide uppercase text-sage group-hover:underline">
+                  Descubrí la Sesión Exploradora
+                </span>
+                <div className="size-8 rounded-full bg-sage/10 text-sage group-hover:bg-sage group-hover:text-white grid place-items-center transition-all duration-300 shrink-0 ml-2">
+                  <ArrowDown className="size-4 group-hover:translate-y-0.5 transition-transform" />
+                </div>
+              </div>
+            </a>
+
+            {/* Opción 2: Quiero trabajar algo puntual */}
+            <a
+              href="#sesiones"
+              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-bloom/50 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-bloom/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="size-12 rounded-2xl bg-bloom/15 text-bloom grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
+                    <Zap className="size-6" />
+                  </div>
+                  <span className="font-serif italic text-3xl text-earth/20 group-hover:text-bloom/40 transition-colors">
+                    02
+                  </span>
+                </div>
+
+                <div className="mb-3">
+                  <span className="eyebrow text-[10px] bg-bloom/15 text-bloom px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">
+                    Foco puntual
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-2xl md:text-3xl text-earth mb-3 leading-snug group-hover:text-bloom transition-colors">
+                  Quiero trabajar algo puntual
+                </h3>
+
+                <p className="text-sm text-earth/65 leading-relaxed mb-6">
+                  Tenés un síntoma físico, un patrón repetitivo o un conflicto familiar concreto. Buscás ir directo a la raíz en un encuentro individual intensivo.
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-earth/10 flex items-center justify-between mt-auto">
+                <span className="text-xs font-semibold tracking-wide uppercase text-bloom group-hover:underline">
+                  Constelaciones & Súper Power
+                </span>
+                <div className="size-8 rounded-full bg-bloom/10 text-bloom group-hover:bg-bloom group-hover:text-white grid place-items-center transition-all duration-300 shrink-0 ml-2">
+                  <ArrowDown className="size-4 group-hover:translate-y-0.5 transition-transform" />
+                </div>
+              </div>
+            </a>
+
+            {/* Opción 3: Quiero un proceso profundo */}
+            <a
+              href="#programas"
+              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-rose/50 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-rose/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div className="size-12 rounded-2xl bg-rose/15 text-rose grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
+                    <TreeDeciduous className="size-6" />
+                  </div>
+                  <span className="font-serif italic text-3xl text-earth/20 group-hover:text-rose/40 transition-colors">
+                    03
+                  </span>
+                </div>
+
+                <div className="mb-3">
+                  <span className="eyebrow text-[10px] bg-rose/15 text-rose px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">
+                    Inmersión completa
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-2xl md:text-3xl text-earth mb-3 leading-snug group-hover:text-rose transition-colors">
+                  Quiero un proceso profundo
+                </h3>
+
+                <p className="text-sm text-earth/65 leading-relaxed mb-6">
+                  Deseás un acompañamiento sostenido en el tiempo (4 a 12 encuentros) para reordenar tu historia familiar, recuperar tu poder y anclar cambios duraderos.
+                </p>
+              </div>
+
+              <div className="pt-6 border-t border-earth/10 flex items-center justify-between mt-auto">
+                <span className="text-xs font-semibold tracking-wide uppercase text-rose group-hover:underline">
+                  Conocé mis programas
+                </span>
+                <div className="size-8 rounded-full bg-rose/10 text-rose group-hover:bg-rose group-hover:text-white grid place-items-center transition-all duration-300 shrink-0 ml-2">
+                  <ArrowDown className="size-4 group-hover:translate-y-0.5 transition-transform" />
+                </div>
+              </div>
+            </a>
           </div>
         </div>
       </section>
