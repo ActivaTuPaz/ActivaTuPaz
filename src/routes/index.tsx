@@ -642,6 +642,19 @@ function Index() {
               </div>
             )}
           </Carousel>
+
+          {/* Enlace hacia programas */}
+          <div className="mt-12 text-center">
+            <p className="text-sm sm:text-base text-earth/70">
+              ¿Buscás un proceso más profundo?{" "}
+              <a
+                href="#programas"
+                className="font-medium text-rose hover:text-rose/80 border-b border-rose/40 pb-0.5 inline-flex items-center gap-1 transition-colors cursor-pointer"
+              >
+                Conocé mis programas <ArrowRight className="size-3.5" />
+              </a>
+            </p>
+          </div>
         </div>
       </section>
 
