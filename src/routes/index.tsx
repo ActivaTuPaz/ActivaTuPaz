@@ -5,6 +5,8 @@ import todoEsDivino from "@/assets/todo-es-divino.jpg";
 import handsCup from "@/assets/hands-cup.jpg";
 import desdeLaRaiz from "@/assets/desde-la-raiz.jpg";
 import mujerRenace from "@/assets/mujer-renace.jpg";
+import mentoriaMaestras from "@/assets/mentoria-maestras.jpg";
+import darYRecibir from "@/assets/dar-y-recibir.jpg";
 import { WHATSAPP_URL, INSTAGRAM_URL, WHATSAPP_NUMBER } from "@/lib/contact";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
@@ -121,6 +123,53 @@ export const Route = createFileRoute("/")({
   }),
   component: Index,
 });
+
+const programasList = [
+  {
+    img: desdeLaRaiz,
+    alt: "Hojas de salvia en niebla matinal",
+    eyebrow: "Acompañamiento individual",
+    title: "Desde la Raíz",
+    text: "Un viaje profundo hacia tu historia familiar para liberar lealtades invisibles y desatar nudos sistémicos.",
+    to: "/desde-la-raiz",
+    accent: "sage" as const,
+    priceLabel: "4 encuentros · 2 meses",
+    note: "Inversión disponible al entrar al programa",
+  },
+  {
+    img: mujerRenace,
+    alt: "Forma orgánica en tonos rosa empolvado",
+    eyebrow: "Experiencia femenina",
+    title: "Mujer Re-Nace",
+    text: "Un espacio sagrado para reencontrarte con tu esencia y recuperar tu poder creador.",
+    to: "/mujer-re-nace",
+    accent: "rose" as const,
+    priceLabel: "12 encuentros semanales",
+    note: "Inversión disponible al entrar al programa",
+  },
+  {
+    img: mentoriaMaestras,
+    alt: "Espacio de mentoría y acompañamiento terapéutico",
+    eyebrow: "Para terapeutas y guías",
+    title: "Mentoría para Maestras",
+    text: "Armá tu propio método terapéutico. De tener muchas herramientas a estructurar tus sesiones y acompañar con seguridad.",
+    to: "/mentoria-maestras",
+    accent: "bloom" as const,
+    priceLabel: "6 encuentros individuales",
+    note: "Inversión disponible al entrar al programa",
+  },
+  {
+    img: darYRecibir,
+    alt: "Manos abiertas en gesto de dar y recibir",
+    eyebrow: "Exclusivo para mujeres",
+    title: "Dar y Recibir",
+    text: "Liberá las creencias limitantes sobre dar y recibir. Aprendé a merecer amor, cuidado y abundancia sin culpa.",
+    to: "/dar-y-recibir",
+    accent: "peach" as const,
+    priceLabel: "Programa individual intensivo",
+    note: "Inversión disponible al entrar al programa",
+  },
+];
 
 const beneficios = [
   { icon: Leaf, title: "Liberar memorias", text: "Soltás cargas familiares y patrones que se repiten sin entender por qué." },
@@ -601,37 +650,54 @@ function Index() {
         <div className="max-w-screen-xl mx-auto">
           <div className="mb-16 max-w-2xl">
             <span className="eyebrow text-rose">Programas</span>
-            <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4 text-balance">Espacios de transformación</h2>
+            <h2 className="font-serif text-4xl md:text-5xl mt-4 mb-4 text-balance">Conocé mis programas</h2>
             <p className="text-sand/70 text-base max-w-xl">
               Procesos diseñados para tu evolución personal con un enfoque
               integral, humano y profesional.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <ProgramCard
-              img={desdeLaRaiz}
-              alt="Hojas de salvia en niebla matinal"
-              eyebrow="Acompañamiento individual"
-              title="Desde la Raíz"
-              text="Un viaje profundo hacia tu historia familiar para liberar lealtades invisibles y desatar nudos sistémicos."
-              to="/desde-la-raiz"
-              accent="sage"
-              priceLabel="4 encuentros · 2 meses"
-              note="Inversión disponible al entrar al programa"
-            />
-            <ProgramCard
-              img={mujerRenace}
-              alt="Forma orgánica en tonos rosa empolvado"
-              eyebrow="Experiencia femenina"
-              title="Mujer Re-Nace"
-              text="Un espacio sagrado para reencontrarte con tu esencia y recuperar tu poder creador."
-              to="/mujer-re-nace"
-              accent="rose"
-              priceLabel="12 encuentros semanales"
-              note="Inversión disponible al entrar al programa"
-            />
+          {/* Indicador móvil para deslizar */}
+          <div className="lg:hidden flex items-center justify-center -mt-10 mb-6">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold tracking-wide text-rose drop-shadow-[0_0_8px_rgba(212,163,158,0.95)] drop-shadow-[0_0_16px_rgba(212,163,158,0.6)] animate-pulse">
+              <Sparkles className="size-3.5 text-rose" />
+              <span>Deslizá para ver más programas</span>
+              <ArrowRight className="size-3.5 text-rose" />
+            </span>
           </div>
+
+          <Carousel
+            opts={{ align: "start", loop: false }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-6 items-stretch">
+              {programasList.map((p) => (
+                <CarouselItem
+                  key={p.title}
+                  className="pl-6 basis-full sm:basis-1/2 lg:basis-1/3 h-auto"
+                >
+                  <ProgramCard
+                    img={p.img}
+                    alt={p.alt}
+                    eyebrow={p.eyebrow}
+                    title={p.title}
+                    text={p.text}
+                    to={p.to}
+                    accent={p.accent}
+                    priceLabel={p.priceLabel}
+                    note={p.note}
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {programasList.length > 1 && (
+              <div className={`flex items-center justify-center gap-6 mt-12 ${programasList.length <= 3 ? "lg:hidden" : ""}`}>
+                <CarouselPrevious className="static translate-y-0 size-12 md:size-14 border-sand/20 bg-sand/10 hover:bg-sand hover:text-earth text-sand transition-all shadow-soft cursor-pointer" />
+                <CarouselNext className="static translate-y-0 size-12 md:size-14 border-sand/20 bg-sand/10 hover:bg-sand hover:text-earth text-sand transition-all shadow-soft cursor-pointer" />
+              </div>
+            )}
+          </Carousel>
         </div>
       </section>
 
@@ -816,7 +882,7 @@ function ProgramCard({
   title,
   text,
   to,
-  accent,
+  accent = "sage",
   priceLabel,
   note,
 }: {
@@ -825,14 +891,20 @@ function ProgramCard({
   eyebrow: string;
   title: string;
   text: string;
-  to: "/desde-la-raiz" | "/mujer-re-nace";
-  accent: "sage" | "rose";
+  to: string;
+  accent?: "sage" | "rose" | "bloom" | "peach";
   priceLabel: string;
   note: string;
 }) {
-  const accentColor = accent === "sage" ? "text-sage border-sage/40" : "text-rose border-rose/40";
+  const accentColor = accent === "rose" 
+    ? "text-rose border-rose/40" 
+    : accent === "bloom" 
+    ? "text-bloom border-bloom/40" 
+    : accent === "peach" 
+    ? "text-peach border-peach/40" 
+    : "text-sage border-sage/40";
   return (
-    <article className="group flex flex-col gap-6">
+    <article className="group flex flex-col h-full gap-6">
       <div className="overflow-hidden rounded-3xl ring-1 ring-sand/10">
         <img
           src={img}
@@ -843,15 +915,15 @@ function ProgramCard({
           className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </div>
-      <div>
+      <div className="flex flex-col flex-1">
         <span className="eyebrow text-sand/50">{eyebrow}</span>
         <h3 className="font-serif text-3xl mt-3 mb-3">{title}</h3>
         <p className="text-sm text-sand/70 mb-6 max-w-md">{text}</p>
-        <div className="flex flex-col gap-1 mb-6 pb-6 border-b border-sand/15 max-w-md">
+        <div className="mt-auto flex flex-col gap-1 mb-6 pb-6 border-b border-sand/15 max-w-md">
           <p className="eyebrow text-sand/40">{priceLabel}</p>
           <p className="text-xs text-sand/50">{note}</p>
         </div>
-        <Link to={to} className={`inline-flex items-center gap-2 text-sm font-medium border-b pb-1 ${accentColor}`}>
+        <Link to={to} className={`inline-flex items-center gap-2 text-sm font-medium border-b pb-1 w-fit ${accentColor}`}>
           Ver detalles e inversión <ArrowRight className="size-4" />
         </Link>
       </div>
