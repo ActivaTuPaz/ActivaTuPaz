@@ -20,6 +20,8 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SobreMiRouteImport } from './routes/sobre-mi'
 import { Route as AdminProtectedRouteImport } from './routes/admin/_protected'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
+import { Route as SesionSlugRouteImport } from './routes/sesion.$slug'
+import { Route as SesionesSlugRouteImport } from './routes/sesiones.$slug'
 import { Route as AdminProtectedIndexRouteImport } from './routes/admin/_protected/index'
 import { Route as AdminProtectedEntrevistasRouteImport } from './routes/admin/_protected/entrevistas'
 import { Route as AdminProtectedMetodologiaRouteImport } from './routes/admin/_protected/metodologia'
@@ -81,6 +83,16 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
   path: '/admin/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SesionSlugRoute = SesionSlugRouteImport.update({
+  id: '/sesion/$slug',
+  path: '/sesion/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SesionesSlugRoute = SesionesSlugRouteImport.update({
+  id: '/sesiones/$slug',
+  path: '/sesiones/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminProtectedIndexRoute = AdminProtectedIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -121,6 +133,8 @@ export interface FileRoutesByFullPath {
   '/sobre-mi': typeof SobreMiRoute
   '/admin': typeof AdminProtectedRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
+  '/sesion/$slug': typeof SesionSlugRoute
+  '/sesiones/$slug': typeof SesionesSlugRoute
   '/admin/entrevistas': typeof AdminProtectedEntrevistasRoute
   '/admin/metodologia': typeof AdminProtectedMetodologiaRoute
   '/admin/programas': typeof AdminProtectedProgramasRoute
@@ -138,6 +152,8 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre-mi': typeof SobreMiRoute
   '/admin/login': typeof AdminLoginRoute
+  '/sesion/$slug': typeof SesionSlugRoute
+  '/sesiones/$slug': typeof SesionesSlugRoute
   '/admin/entrevistas': typeof AdminProtectedEntrevistasRoute
   '/admin/metodologia': typeof AdminProtectedMetodologiaRoute
   '/admin/programas': typeof AdminProtectedProgramasRoute
@@ -157,6 +173,8 @@ export interface FileRoutesById {
   '/sobre-mi': typeof SobreMiRoute
   '/admin/_protected': typeof AdminProtectedRouteWithChildren
   '/admin/login': typeof AdminLoginRoute
+  '/sesion/$slug': typeof SesionSlugRoute
+  '/sesiones/$slug': typeof SesionesSlugRoute
   '/admin/_protected/entrevistas': typeof AdminProtectedEntrevistasRoute
   '/admin/_protected/metodologia': typeof AdminProtectedMetodologiaRoute
   '/admin/_protected/programas': typeof AdminProtectedProgramasRoute
@@ -177,6 +195,8 @@ export interface FileRouteTypes {
     | '/sobre-mi'
     | '/admin'
     | '/admin/login'
+    | '/sesion/$slug'
+    | '/sesiones/$slug'
     | '/admin/entrevistas'
     | '/admin/metodologia'
     | '/admin/programas'
@@ -194,6 +214,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/sobre-mi'
     | '/admin/login'
+    | '/sesion/$slug'
+    | '/sesiones/$slug'
     | '/admin/entrevistas'
     | '/admin/metodologia'
     | '/admin/programas'
@@ -212,6 +234,8 @@ export interface FileRouteTypes {
     | '/sobre-mi'
     | '/admin/_protected'
     | '/admin/login'
+    | '/sesion/$slug'
+    | '/sesiones/$slug'
     | '/admin/_protected/entrevistas'
     | '/admin/_protected/metodologia'
     | '/admin/_protected/programas'
@@ -231,6 +255,8 @@ export interface RootRouteChildren {
   SobreMiRoute: typeof SobreMiRoute
   AdminProtectedRoute: typeof AdminProtectedRouteWithChildren
   AdminLoginRoute: typeof AdminLoginRoute
+  SesionSlugRoute: typeof SesionSlugRoute
+  SesionesSlugRoute: typeof SesionesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -312,6 +338,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sesion/$slug': {
+      id: '/sesion/$slug'
+      path: '/sesion/$slug'
+      fullPath: '/sesion/$slug'
+      preLoaderRoute: typeof SesionSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sesiones/$slug': {
+      id: '/sesiones/$slug'
+      path: '/sesiones/$slug'
+      fullPath: '/sesiones/$slug'
+      preLoaderRoute: typeof SesionesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/_protected/': {
       id: '/admin/_protected/'
       path: '/'
@@ -382,6 +422,8 @@ const rootRouteChildren: RootRouteChildren = {
   SobreMiRoute: SobreMiRoute,
   AdminProtectedRoute: AdminProtectedRouteWithChildren,
   AdminLoginRoute: AdminLoginRoute,
+  SesionSlugRoute: SesionSlugRoute,
+  SesionesSlugRoute: SesionesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

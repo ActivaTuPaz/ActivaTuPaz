@@ -10,6 +10,12 @@ const programLinks = [
   { to: "/dar-y-recibir", label: "Dar y Recibir" },
 ];
 
+const sessionLinks = [
+  { to: "/sesiones/$slug", params: { slug: "exploradora" }, label: "Sesión Exploradora" },
+  { to: "/sesiones/$slug", params: { slug: "constelaciones" }, label: "Constelaciones Familiares" },
+  { to: "/sesiones/$slug", params: { slug: "super-power" }, label: "Sesión Súper Power" },
+];
+
 const utilityLinks = [
   { to: "/entrevista-previa", label: "Entrevista" },
   { to: "/", hash: "recursos", label: "Recursos" },
@@ -48,15 +54,34 @@ export function SiteHeader() {
             Inicio
           </Link>
 
-          <Link
-            to="/"
-            hash="sesiones"
-            activeProps={{ className: "text-earth" }}
-            activeOptions={{ exact: true, includeHash: true }}
-            className="hover:text-rose transition-colors duration-300"
-          >
-            Sesiones 1 a 1
-          </Link>
+          {/* Dropdown Sesiones */}
+          <div className="relative group py-4 -my-4">
+            <button className="flex items-center gap-1 group-hover:text-rose transition-colors duration-300 uppercase">
+              Sesiones 1 a 1 <ChevronDown className="size-3 group-hover:rotate-180 transition-transform duration-300" />
+            </button>
+            <div className="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+              <div className="bg-sand/95 backdrop-blur-xl border border-earth/10 rounded-2xl p-2 flex flex-col min-w-[230px] shadow-soft">
+                <Link
+                  to="/"
+                  hash="sesiones"
+                  className="px-4 py-2 hover:text-rose transition-colors text-[10px] uppercase tracking-[0.15em] whitespace-nowrap text-left text-earth/50 border-b border-earth/10 font-semibold"
+                >
+                  Ver todas las sesiones
+                </Link>
+                {sessionLinks.map((s) => (
+                  <Link
+                    key={s.label}
+                    to={s.to}
+                    params={s.params}
+                    activeProps={{ className: "text-rose font-semibold" }}
+                    className="px-4 py-2.5 hover:text-rose transition-colors text-[10px] uppercase tracking-[0.15em] whitespace-nowrap text-left text-earth/70"
+                  >
+                    {s.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
 
           {/* Dropdown Programas */}
           <div className="relative group py-4 -my-4">
@@ -160,10 +185,24 @@ export function SiteHeader() {
                 hash="sesiones"
                 activeProps={{ className: "text-earth" }}
                 activeOptions={{ exact: true, includeHash: true }}
-                className="block font-serif text-2xl text-earth/80 hover:text-rose transition-colors"
+                className="block font-serif text-2xl text-earth/80 hover:text-rose transition-colors mb-3"
               >
                 Sesiones 1 a 1
               </Link>
+              <ul className="flex flex-col gap-3 pl-4 border-l-2 border-earth/10">
+                {sessionLinks.map((s) => (
+                  <li key={s.label}>
+                    <Link
+                      to={s.to}
+                      params={s.params}
+                      activeProps={{ className: "text-earth font-semibold" }}
+                      className="block text-xs text-earth/70 hover:text-rose transition-colors uppercase tracking-widest"
+                    >
+                      {s.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </li>
             
             <li className="pt-4 border-t border-earth/5">

@@ -138,6 +138,7 @@ export async function saveMethodologyData(data: MethodologyData): Promise<void> 
 
 export type SessionCard = {
   id: string;
+  slug?: string;
   icon: string;
   eyebrow: string;
   title: string;
@@ -164,6 +165,7 @@ export const defaultSessionsData: SessionsData = {
   cards: [
     {
       id: "1",
+      slug: "exploradora",
       icon: "compass",
       eyebrow: "Primer acercamiento",
       title: "Sesión Exploradora",
@@ -176,7 +178,22 @@ export const defaultSessionsData: SessionsData = {
       isPopular: false
     },
     {
+      id: "3",
+      slug: "constelaciones",
+      icon: "tree",
+      eyebrow: "Mirada sistémica",
+      title: "Constelaciones Familiares",
+      description: "Mirá los hilos invisibles de tu árbol genealógico, ordená tu lugar en el sistema y desatá lealtades inconscientes.",
+      duration: "90 minutos",
+      detail: "Encuentro sistémico individual",
+      price: "$85.000",
+      hasPromo: false,
+      oldPrice: "",
+      isPopular: false
+    },
+    {
       id: "2",
+      slug: "super-power",
       icon: "zap",
       eyebrow: "Inmersión profunda",
       title: "Sesión Súper Power",

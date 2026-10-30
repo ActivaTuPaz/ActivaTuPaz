@@ -528,7 +528,7 @@ function Index() {
       <section id="por-donde-empezar" className="py-24 px-6 relative overflow-hidden bg-sand border-t border-earth/5">
         {/* Fondo sutil con resplandor orgánico */}
         <div aria-hidden className="absolute inset-0 pointer-events-none -z-10">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-rose/10 via-bloom/10 to-sage/10 blur-3xl rounded-full opacity-60" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-rose/10 via-bloom/10 to-sage/10 blur-3xl rounded-full opacity-60" />
         </div>
 
         <div className="max-w-screen-xl mx-auto">
@@ -543,130 +543,175 @@ function Index() {
             </p>
           </div>
 
-          {/* 3 opciones en fila (apiladas en móvil) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
-            {/* Opción 1: Quiero conocerte primero */}
-            <a
-              href="#sesiones"
-              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-sage/50 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
+          {/* 4 opciones en fila (apiladas en móvil, 2 en tablet, 4 en desktop) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+            {/* Opción 1: Sesión Exploradora */}
+            <Link
+              to="/sesiones/$slug"
+              params={{ slug: "exploradora" }}
+              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-sage/50 rounded-3xl p-7 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-sage/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+              <div className="absolute top-0 right-0 w-28 h-28 bg-sage/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
               
               <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="size-12 rounded-2xl bg-sage/15 text-sage grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
-                    <Compass className="size-6" />
+                <div className="flex items-center justify-between mb-5">
+                  <div className="size-11 rounded-2xl bg-sage/15 text-sage grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
+                    <Compass className="size-5" />
                   </div>
                   <span className="font-serif italic text-3xl text-earth/20 group-hover:text-sage/40 transition-colors">
                     01
                   </span>
                 </div>
 
-                <div className="mb-3">
-                  <span className="eyebrow text-[10px] bg-sage/15 text-sage px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">
+                <div className="mb-2.5">
+                  <span className="eyebrow text-[10px] bg-sage/15 text-sage px-2.5 py-0.5 rounded-full uppercase tracking-wider font-semibold">
                     Primer acercamiento
                   </span>
                 </div>
 
-                <h3 className="font-serif text-2xl md:text-3xl text-earth mb-3 leading-snug group-hover:text-sage transition-colors">
+                <h3 className="font-serif text-2xl text-earth mb-2.5 leading-snug group-hover:text-sage transition-colors">
                   Quiero conocerte primero
                 </h3>
 
-                <p className="text-sm text-earth/65 leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-earth/65 leading-relaxed mb-6">
                   Sentís curiosidad o dudas y necesitás un espacio accesible de 30 minutos para poner palabras a lo que te pasa y sentir si mi mirada resuena con vos.
                 </p>
               </div>
 
-              <div className="pt-6 border-t border-earth/10 flex items-center justify-between mt-auto">
-                <span className="text-xs font-semibold tracking-wide uppercase text-sage group-hover:underline">
-                  Descubrí la Sesión Exploradora
+              <div className="pt-5 border-t border-earth/10 flex items-center justify-between mt-auto">
+                <span className="text-[11px] font-semibold tracking-wide uppercase text-sage group-hover:underline">
+                  Descubrí la Exploradora
                 </span>
-                <div className="size-8 rounded-full bg-sage/10 text-sage group-hover:bg-sage group-hover:text-white grid place-items-center transition-all duration-300 shrink-0 ml-2">
-                  <ArrowDown className="size-4 group-hover:translate-y-0.5 transition-transform" />
+                <div className="size-7 rounded-full bg-sage/10 text-sage group-hover:bg-sage group-hover:text-white grid place-items-center transition-all duration-300 shrink-0 ml-2">
+                  <ArrowRight className="size-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </div>
-            </a>
+            </Link>
 
-            {/* Opción 2: Quiero trabajar algo puntual */}
-            <a
-              href="#sesiones"
-              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-bloom/50 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
+            {/* Opción 2: Constelaciones Familiares */}
+            <Link
+              to="/sesiones/$slug"
+              params={{ slug: "constelaciones" }}
+              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-bloom/50 rounded-3xl p-7 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-bloom/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+              <div className="absolute top-0 right-0 w-28 h-28 bg-bloom/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
 
               <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="size-12 rounded-2xl bg-bloom/15 text-bloom grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
-                    <Zap className="size-6" />
+                <div className="flex items-center justify-between mb-5">
+                  <div className="size-11 rounded-2xl bg-bloom/15 text-bloom grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
+                    <TreeDeciduous className="size-5" />
                   </div>
                   <span className="font-serif italic text-3xl text-earth/20 group-hover:text-bloom/40 transition-colors">
                     02
                   </span>
                 </div>
 
-                <div className="mb-3">
-                  <span className="eyebrow text-[10px] bg-bloom/15 text-bloom px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">
-                    Foco puntual
+                <div className="mb-2.5">
+                  <span className="eyebrow text-[10px] bg-bloom/15 text-bloom px-2.5 py-0.5 rounded-full uppercase tracking-wider font-semibold">
+                    Mirada sistémica
                   </span>
                 </div>
 
-                <h3 className="font-serif text-2xl md:text-3xl text-earth mb-3 leading-snug group-hover:text-bloom transition-colors">
-                  Quiero trabajar algo puntual
+                <h3 className="font-serif text-2xl text-earth mb-2.5 leading-snug group-hover:text-bloom transition-colors">
+                  Quiero mirar mi árbol familiar
                 </h3>
 
-                <p className="text-sm text-earth/65 leading-relaxed mb-6">
-                  Tenés un síntoma físico, un patrón repetitivo o un conflicto familiar concreto. Buscás ir directo a la raíz en un encuentro individual intensivo.
+                <p className="text-xs sm:text-sm text-earth/65 leading-relaxed mb-6">
+                  Sentís que repetís historias o bloqueos del clan. Buscás ordenar tu lugar en el sistema y desatar lealtades familiares inconscientes.
                 </p>
               </div>
 
-              <div className="pt-6 border-t border-earth/10 flex items-center justify-between mt-auto">
-                <span className="text-xs font-semibold tracking-wide uppercase text-bloom group-hover:underline">
-                  Constelaciones & Súper Power
+              <div className="pt-5 border-t border-earth/10 flex items-center justify-between mt-auto">
+                <span className="text-[11px] font-semibold tracking-wide uppercase text-bloom group-hover:underline">
+                  Constelaciones Familiares
                 </span>
-                <div className="size-8 rounded-full bg-bloom/10 text-bloom group-hover:bg-bloom group-hover:text-white grid place-items-center transition-all duration-300 shrink-0 ml-2">
-                  <ArrowDown className="size-4 group-hover:translate-y-0.5 transition-transform" />
+                <div className="size-7 rounded-full bg-bloom/10 text-bloom group-hover:bg-bloom group-hover:text-white grid place-items-center transition-all duration-300 shrink-0 ml-2">
+                  <ArrowRight className="size-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </div>
-            </a>
+            </Link>
 
-            {/* Opción 3: Quiero un proceso profundo */}
-            <a
-              href="#programas"
-              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-rose/50 rounded-3xl p-8 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
+            {/* Opción 3: Sesión Súper Power */}
+            <Link
+              to="/sesiones/$slug"
+              params={{ slug: "super-power" }}
+              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-rose/50 rounded-3xl p-7 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-rose/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+              <div className="absolute top-0 right-0 w-28 h-28 bg-rose/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
 
               <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="size-12 rounded-2xl bg-rose/15 text-rose grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
-                    <TreeDeciduous className="size-6" />
+                <div className="flex items-center justify-between mb-5">
+                  <div className="size-11 rounded-2xl bg-rose/15 text-rose grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
+                    <Zap className="size-5" />
                   </div>
                   <span className="font-serif italic text-3xl text-earth/20 group-hover:text-rose/40 transition-colors">
                     03
                   </span>
                 </div>
 
-                <div className="mb-3">
-                  <span className="eyebrow text-[10px] bg-rose/15 text-rose px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">
-                    Inmersión completa
+                <div className="mb-2.5">
+                  <span className="eyebrow text-[10px] bg-rose/15 text-rose px-2.5 py-0.5 rounded-full uppercase tracking-wider font-semibold">
+                    Inmersión intensiva
                   </span>
                 </div>
 
-                <h3 className="font-serif text-2xl md:text-3xl text-earth mb-3 leading-snug group-hover:text-rose transition-colors">
-                  Quiero un proceso profundo
+                <h3 className="font-serif text-2xl text-earth mb-2.5 leading-snug group-hover:text-rose transition-colors">
+                  Quiero decodificar un síntoma
                 </h3>
 
-                <p className="text-sm text-earth/65 leading-relaxed mb-6">
-                  Deseás un acompañamiento sostenido en el tiempo (4 a 12 encuentros) para reordenar tu historia familiar, recuperar tu poder y anclar cambios duraderos.
+                <p className="text-xs sm:text-sm text-earth/65 leading-relaxed mb-6">
+                  Tenés un síntoma físico, molestia o crisis puntual. Buscás ir directo a la raíz biológica en un encuentro de 120 minutos intensivos.
                 </p>
               </div>
 
-              <div className="pt-6 border-t border-earth/10 flex items-center justify-between mt-auto">
-                <span className="text-xs font-semibold tracking-wide uppercase text-rose group-hover:underline">
+              <div className="pt-5 border-t border-earth/10 flex items-center justify-between mt-auto">
+                <span className="text-[11px] font-semibold tracking-wide uppercase text-rose group-hover:underline">
+                  Sesión Súper Power
+                </span>
+                <div className="size-7 rounded-full bg-rose/10 text-rose group-hover:bg-rose group-hover:text-white grid place-items-center transition-all duration-300 shrink-0 ml-2">
+                  <ArrowRight className="size-3.5 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
+            {/* Opción 4: Quiero un proceso profundo */}
+            <a
+              href="#programas"
+              className="group cursor-pointer bg-cream/95 backdrop-blur-sm border border-earth/10 hover:border-earth/40 rounded-3xl p-7 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1.5 shadow-soft hover:shadow-lift relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-28 h-28 bg-earth/5 rounded-bl-full pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="size-11 rounded-2xl bg-earth/10 text-earth grid place-items-center group-hover:scale-110 transition-transform duration-500 shadow-sm">
+                    <Sparkles className="size-5" />
+                  </div>
+                  <span className="font-serif italic text-3xl text-earth/20 group-hover:text-earth/40 transition-colors">
+                    04
+                  </span>
+                </div>
+
+                <div className="mb-2.5">
+                  <span className="eyebrow text-[10px] bg-earth/10 text-earth px-2.5 py-0.5 rounded-full uppercase tracking-wider font-semibold">
+                    Acompañamiento sostenido
+                  </span>
+                </div>
+
+                <h3 className="font-serif text-2xl text-earth mb-2.5 leading-snug group-hover:text-earth transition-colors">
+                  Quiero un proceso profundo
+                </h3>
+
+                <p className="text-xs sm:text-sm text-earth/65 leading-relaxed mb-6">
+                  Deseás un acompañamiento sostenido en el tiempo (4 a 12 encuentros) para reordenar tu historia familiar y anclar cambios duraderos.
+                </p>
+              </div>
+
+              <div className="pt-5 border-t border-earth/10 flex items-center justify-between mt-auto">
+                <span className="text-[11px] font-semibold tracking-wide uppercase text-earth/80 group-hover:underline">
                   Conocé mis programas
                 </span>
-                <div className="size-8 rounded-full bg-rose/10 text-rose group-hover:bg-rose group-hover:text-white grid place-items-center transition-all duration-300 shrink-0 ml-2">
-                  <ArrowDown className="size-4 group-hover:translate-y-0.5 transition-transform" />
+                <div className="size-7 rounded-full bg-earth/10 text-earth group-hover:bg-earth group-hover:text-sand grid place-items-center transition-all duration-300 shrink-0 ml-2">
+                  <ArrowDown className="size-3.5 group-hover:translate-y-0.5 transition-transform" />
                 </div>
               </div>
             </a>
@@ -705,6 +750,7 @@ function Index() {
                 // Select icon
                 const Icon = card.icon === "compass" ? Compass 
                            : card.icon === "zap" ? Zap 
+                           : card.icon === "tree" ? TreeDeciduous
                            : card.icon === "star" ? Sparkles 
                            : Heart;
                 
@@ -714,8 +760,15 @@ function Index() {
                 const accentBg = isAccent ? "bg-peach/40" : "bg-mint/30";
                 const priceColor = isAccent ? "text-bloom" : "text-earth";
 
-                // Mensaje personalizado de WhatsApp según la sesión
+                // Slug de la sesión para vincular a la página de detalle
                 const titleLower = card.title.toLowerCase();
+                const sessionSlug = card.slug || (
+                  titleLower.includes("explora") ? "exploradora" :
+                  titleLower.includes("constela") ? "constelaciones" :
+                  "super-power"
+                );
+
+                // Mensaje personalizado de WhatsApp según la sesión
                 let waMessage = `Hola Lorena, quiero reservar una sesión de ${card.title}.`;
                 if (titleLower.includes("explorador")) {
                   waMessage = "Hola Lorena, quiero reservar una Sesión Exploradora de 30 minutos.";
@@ -757,27 +810,39 @@ function Index() {
                         </li>
                       </ul>
                       
-                      <div className="mt-auto flex items-end justify-between pt-6 border-t border-earth/10">
-                        <div>
-                          {card.hasPromo && (
-                            <div className="flex items-center gap-2 mb-1">
-                              <p className="font-serif text-xl text-earth/40 line-through">{card.oldPrice}</p>
-                              <span className={`eyebrow text-[10px] ${accentColor} bg-bloom/10 px-2 py-0.5 rounded-full`}>
-                                solo por hoy
-                              </span>
-                            </div>
-                          )}
-                          <p className={`font-serif text-3xl ${priceColor}`}>{card.price}</p>
-                          <p className="text-xs text-earth/50">Encuentro único</p>
+                      <div className="mt-auto pt-6 border-t border-earth/10">
+                        <div className="flex items-baseline justify-between mb-4">
+                          <div>
+                            {card.hasPromo && (
+                              <div className="flex items-center gap-2 mb-1">
+                                <p className="font-serif text-xl text-earth/40 line-through">{card.oldPrice}</p>
+                                <span className={`eyebrow text-[10px] ${accentColor} bg-bloom/10 px-2 py-0.5 rounded-full`}>
+                                  solo por hoy
+                                </span>
+                              </div>
+                            )}
+                            <p className={`font-serif text-3xl ${priceColor}`}>{card.price}</p>
+                            <p className="text-xs text-earth/50">Encuentro único</p>
+                          </div>
                         </div>
-                        <a
-                          href={cardWhatsAppUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 bg-earth text-sand px-5 py-3 rounded-full text-xs font-medium hover:bg-earth/90 transition-colors"
-                        >
-                          Reservar <ArrowRight className="size-3.5" />
-                        </a>
+
+                        <div className="grid grid-cols-2 gap-2.5 pt-1">
+                          <Link
+                            to="/sesiones/$slug"
+                            params={{ slug: sessionSlug }}
+                            className="inline-flex items-center justify-center gap-1 border border-earth/20 bg-sand/35 hover:bg-cream hover:border-earth/40 text-earth px-3 py-2.5 rounded-full text-xs font-medium transition-colors text-center"
+                          >
+                            Ver detalles
+                          </Link>
+                          <a
+                            href={cardWhatsAppUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center justify-center gap-1.5 bg-earth text-sand hover:bg-earth/90 px-3 py-2.5 rounded-full text-xs font-medium transition-colors shadow-soft text-center"
+                          >
+                            Reservar <ArrowRight className="size-3" />
+                          </a>
+                        </div>
                       </div>
                     </article>
                   </CarouselItem>
